@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="30dp"
+        android:src="@mipmap/planet_logo"
+        android:layout_gravity="center_horizontal"
+        app:riv_border_color="@color/xui_config_color_gray_6"
+        app:riv_corner_radius="15dp"
+        app:riv_selected_border_color="@color/xui_config_color_gray_4"
+        app:riv_selected_mask_color="@color/xui_config_color_gray_8"
+        android:focusable="true" />
+
+    <TextView
+        style="@style/TextStyle.Title"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:text="@string/login_to_your_account"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/email_address"
+            android:drawableStart="@drawable/custom_email_icon"
+            android:background="@drawable/custom_input"
+            android:layout_marginTop="30dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:drawablePadding="15dp"
+            android:inputType="textEmailAddress"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/password"
+            android:drawableStart="@drawable/custom_lock_icon"
+            android:background="@drawable/custom_input"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:drawablePadding="15dp"
+            android:inputType="textPassword"
+            android:textSize="15sp" />
+
+        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+            android:id="@+id/btn_login"
+            style="@style/SuperButton.Primary.Login"
+            android:layout_marginTop="50dp"
+            android:text="Log in" />
+
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextStyle.Explain"
+                android:layout_width="wrap_content"
+                android:text="@string/dont_have_an_account"
+                android:textColor="@color/xui_config_color_primary_text" />
+
+            <TextView
+                android:id="@+id/tv_signup"
+                style="@style/TextStyle.Explain"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/title_signup"
+                android:textColor="@color/purple_200" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

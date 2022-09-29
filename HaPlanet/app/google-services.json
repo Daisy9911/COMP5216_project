@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "520576816746",
+    "project_id": "haplanet-83dba",
+    "storage_bucket": "haplanet-83dba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520576816746:android:eb7b0c6c1d7a91b39a1c13",
+        "android_client_info": {
+          "package_name": "comp5216.sydney.edu.au.haplanet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520576816746-409k8b1rnsmpl0thbu03hfv7p1qnfhaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpS4oskuudwk_QP2rDJMgfm_kACZxEE2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520576816746-409k8b1rnsmpl0thbu03hfv7p1qnfhaj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

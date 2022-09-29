@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SuperButton.Primary.Login">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginStart">50dp</item>
+        <item name="android:layout_marginEnd">50dp</item>
+        <item name="sCornersRadius">20dp</item>
+        <item name="sSelectorNormalColor">@color/purple_200</item>
+        <item name="sSelectorPressedColor">#CBA7F8</item>
+        <item name="android:textColor">@color/xui_config_color_white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="SuperButton.Primary.Register">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginStart">50dp</item>
+        <item name="android:layout_marginEnd">50dp</item>
+        <item name="sCornersRadius">20dp</item>
+        <item name="sSelectorNormalColor">@color/purple_200</item>
+        <item name="sSelectorPressedColor">#CBA7F8</item>
+        <item name="android:textColor">@color/xui_config_color_white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+</resources>
