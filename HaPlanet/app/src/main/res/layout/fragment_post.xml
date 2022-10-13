@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,17 +34,42 @@
     <EditText
         android:id="@+id/txt_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Introduce the content of your activity…"
-        android:layout_marginTop="10dp" />
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:inputType="textMultiLine"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:gravity="top"
+        android:hint="Introduce the content of your activity…" />
 
-    <EditText
-        android:id="@+id/txt_time"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Start time:"
-        android:textAlignment="viewStart" />
+        android:layout_marginLeft="5dp">
+
+        <TextView
+            android:id="@+id/txt_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Start date"/>
+
+        <TextView
+            android:id="@+id/txt_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/txt_start_date"
+            android:hint="Start time" />
+
+    </RelativeLayout>
+
+    <!--    <com.loper7.date_time_picker.DateTimePicker-->
+    <!--        android:id="@+id/dateTimePicker"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout="@layout/dt_layout_date_picker_globalization"-->
+    <!--        />-->
 
     <EditText
         android:id="@+id/txt_location"
@@ -53,27 +79,55 @@
         android:hint="Location:"
         android:textAlignment="viewStart" />
 
-    <EditText
-        android:id="@+id/txt_number_of_people"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:inputType="number"
-        android:hint="Number of people required:"
-        android:textAlignment="viewStart" />
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/txt_number_of_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Number"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textAlignment="viewStart" />
 
-    <EditText
-        android:id="@+id/txt_Price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Price:"
-        android:textAlignment="viewStart" />
+        <EditText
+            android:id="@+id/txt_Price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txt_number_of_people"
+            android:layout_marginTop="10dp"
+            android:hint="Price($)"
+            android:inputType="number"
+            android:maxLength="5"/>
+
+        <EditText
+            android:id="@+id/txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txt_Price"
+            android:layout_marginTop="10dp"
+            android:hint="Time(minutes)"
+            android:inputType="number"
+            android:maxLength="3"/>
+
+        <EditText
+            android:id="@+id/txt_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txt_time"
+            android:layout_marginTop="10dp"
+            android:hint="Category"
+            android:maxLength="10"/>
+    </RelativeLayout>
 
     <Button
+        android:layout_marginTop="20dp"
         android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="submit"/>
+        android:layout_gravity="bottom|right"
+        android:text="submit" />
 
 </LinearLayout>
