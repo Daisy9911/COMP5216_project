@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".fragment.FindFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/idLVEvents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Find page" />
+        android:numColumns="2" />
 
 </FrameLayout>
