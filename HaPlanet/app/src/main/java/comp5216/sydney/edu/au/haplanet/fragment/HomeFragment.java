@@ -6,50 +6,45 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.xuexiang.xui.XUI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-import comp5216.sydney.edu.au.haplanet.ListviewAdapter;
+import comp5216.sydney.edu.au.haplanet.AddInActivity;
+import comp5216.sydney.edu.au.haplanet.adapter.ListviewAdapter;
 import comp5216.sydney.edu.au.haplanet.R;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
 
 public class HomeFragment extends Fragment {
 
-    // creating a variable for our
-    // grid view, arraylist and
-    // firebase Firestore.
-    ListView mGridView;
+    ListView mListView;
     ArrayList<EventModel> eventModelArrayList;
     FirebaseFirestore db;
+    private TabLayout tabLayout;
+    private List<String> tabList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        // below line is use to initialize our variables.
-//        mGridView = getActivity().findViewById(R.id.idGVCourses);
-//        eventModelArrayList = new ArrayList<>();
-//
-//        // initializing our variable for firebase
-//        // firestore and getting its instance.
-//        db = FirebaseFirestore.getInstance();
-//
-//        // here we are calling a method
-//        // to load data in our list view.
-//        loadDatainGridView();
-
     }
 
     @Override
@@ -63,61 +58,78 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // initializing our variable for firebase
-        // firestore and getting its instance.
         db = FirebaseFirestore.getInstance();
 
-        // below line is use to initialize our variables.
-        mGridView = getActivity().findViewById(R.id.idGVCourses);
         eventModelArrayList = new ArrayList<>();
+        mListView = getActivity().findViewById(R.id.idLVEvents);
+        tabLayout = (TabLayout) getActivity().findViewById(R.id.tayLayout);
 
-        // initializing our variable for firebase
-        // firestore and getting its instance.
         db = FirebaseFirestore.getInstance();
 
-        // below line is use to get data from Firebase
-        // firestore using collection in android.
         db.collection("files").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        // after getting the data we are calling on success method
-                        // and inside this method we are checking if the received
-                        // query snapshot is empty or not.
                         if (!queryDocumentSnapshots.isEmpty()) {
-                            // if the snapshot is not empty we are hiding our
-                            // progress bar and adding our data in a list.
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            tabLayout.addTab(tabLayout.newTab().setText("All"));
                             for (DocumentSnapshot d : list) {
 
-                                // after getting this list we are passing
-                                // that list to our object class.
                                 EventModel eventModel = d.toObject(EventModel.class);
-
-                                // after getting data from Firebase
-                                // we are storing that data in our array list
                                 eventModelArrayList.add(eventModel);
-                            }
-                            // after that we are passing our array list to our adapter class.
-                            ListviewAdapter adapter = new ListviewAdapter(getActivity(), eventModelArrayList);
 
-                            // after passing this array list
-                            // to our adapter class we are setting
-                            // our adapter to our list view.
-                            mGridView.setAdapter(adapter);
+                                if (!tabList.contains(eventModel.getCategory())) {
+                                    tabList.add(eventModel.getCategory());
+                                    tabLayout.addTab(tabLayout.newTab().setText(eventModel.getCategory()));
+//                                    Log.e("Tab category", eventModel.getCategory());
+                                }
+                            }
+                            tabList.clear();
+                            ListviewAdapter adapter = new ListviewAdapter(getActivity(), eventModelArrayList);
+                            mListView.setAdapter(adapter);
                         } else {
-                            // if the snapshot is empty we are displaying a toast message.
                             Toast.makeText(getActivity(), "No data found in Database", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        // we are displaying a toast message
-                        // when we get any error from Firebase.
-                        Toast.makeText(getActivity(), "Fail to load data..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Fail to load data...", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.e("tab", String.valueOf(tab.getText()));
+                //深拷贝
+                ArrayList<EventModel> newEventModelArrayList = new ArrayList<>();
+                for (EventModel eventModel : eventModelArrayList) {
+                    newEventModelArrayList.add(eventModel.clone());
+                }
+                if ((String) tab.getText() != "All") {
+                    newEventModelArrayList.removeIf(e -> e.getCategory().equals(String.valueOf(tab.getText())));
+                    ListviewAdapter adapter = new ListviewAdapter(getActivity(), newEventModelArrayList);
+                    mListView.setAdapter(adapter);
+                } else {
+                    ListviewAdapter adapter = new ListviewAdapter(getActivity(), newEventModelArrayList);
+                    mListView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+
+
+        });
+
+    }
 }

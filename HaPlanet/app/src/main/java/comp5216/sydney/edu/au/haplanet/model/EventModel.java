@@ -11,37 +11,56 @@ import java.util.List;
  */
 
 public class EventModel implements Serializable {
+    private String picture;
+    private String title;
     private String description;
+    private String startTime;
     private String location;
     private String numberOfPeople;
-    private String picture;
     private String price;
-    private String startTime;
-    private String title;
 
+    //新增活动时长
+    private String time;
     //新增分类
-//    private String category;
-
+    private String category;
     //新增参与用户列表
     private ArrayList<String> uidList;
 
     public EventModel(String picture, String title, String description,
                       String startTime, String location, String numberOfPeople,
-                      String price, ArrayList<String> uidList) {
+                      String price, String time, String category, ArrayList<String> uidList) {
+        this.picture = picture;
+        this.title = title;
         this.description = description;
+        this.startTime = startTime;
         this.location = location;
         this.numberOfPeople = numberOfPeople;
-        this.picture = picture;
         this.price = price;
-        this.startTime = startTime;
-        this.title = title;
 
-//        this.category = category;
-
+        this.time = time;
+        this.category = category;
         this.uidList = uidList;
     }
-    public EventModel(){}
 
+    public EventModel() {
+    }
+
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getDescription() {
         return description;
@@ -49,6 +68,14 @@ public class EventModel implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     public String getLocation() {
@@ -67,14 +94,6 @@ public class EventModel implements Serializable {
         this.numberOfPeople = numberOfPeople;
     }
 
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
     public String getPrice() {
         return price;
     }
@@ -83,20 +102,20 @@ public class EventModel implements Serializable {
         this.price = price;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getTime() {
+        return time;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCategory() {
+        return category;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public ArrayList<String> getUidList() {
@@ -107,11 +126,11 @@ public class EventModel implements Serializable {
         this.uidList = uidList;
     }
 
-//    public String getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
+    @Override
+    public EventModel clone() {
+        EventModel eventModel = new EventModel(this.picture, this.title, this.description, this.startTime,
+                this.location, this.numberOfPeople, this.price, this.time, this.category, this.uidList);
+        return eventModel;
+    }
+
 }
