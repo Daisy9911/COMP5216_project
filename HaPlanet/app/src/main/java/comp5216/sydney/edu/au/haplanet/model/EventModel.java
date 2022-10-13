@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * Created by anupamchugh on 11/02/17.
  */
+
 
 public class EventModel implements Serializable {
     private String picture;
@@ -62,6 +64,7 @@ public class EventModel implements Serializable {
         this.title = title;
     }
 
+
     public String getDescription() {
         return description;
     }
@@ -78,6 +81,7 @@ public class EventModel implements Serializable {
         this.startTime = startTime;
     }
 
+
     public String getLocation() {
         return location;
     }
@@ -85,6 +89,7 @@ public class EventModel implements Serializable {
     public void setLocation(String location) {
         this.location = location;
     }
+
 
     public String getNumberOfPeople() {
         return numberOfPeople;
@@ -132,5 +137,4 @@ public class EventModel implements Serializable {
                 this.location, this.numberOfPeople, this.price, this.time, this.category, this.uidList);
         return eventModel;
     }
-
 }
