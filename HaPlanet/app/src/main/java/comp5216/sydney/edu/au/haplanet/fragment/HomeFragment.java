@@ -2,59 +2,49 @@ package comp5216.sydney.edu.au.haplanet.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.xuexiang.xui.XUI;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import comp5216.sydney.edu.au.haplanet.AddInActivity;
+import comp5216.sydney.edu.au.haplanet.adapter.ListviewAdapter;
 import comp5216.sydney.edu.au.haplanet.R;
+import comp5216.sydney.edu.au.haplanet.model.EventModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    ListView mListView;
+    ArrayList<EventModel> eventModelArrayList;
+    FirebaseFirestore db;
+    private TabLayout tabLayout;
+    private List<String> tabList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -62,5 +52,84 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        db = FirebaseFirestore.getInstance();
+
+        eventModelArrayList = new ArrayList<>();
+        mListView = getActivity().findViewById(R.id.idLVEvents);
+        tabLayout = (TabLayout) getActivity().findViewById(R.id.tayLayout);
+
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("files").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            tabLayout.addTab(tabLayout.newTab().setText("All"));
+                            for (DocumentSnapshot d : list) {
+
+                                EventModel eventModel = d.toObject(EventModel.class);
+                                eventModelArrayList.add(eventModel);
+
+                                if (!tabList.contains(eventModel.getCategory())) {
+                                    tabList.add(eventModel.getCategory());
+                                    tabLayout.addTab(tabLayout.newTab().setText(eventModel.getCategory()));
+//                                    Log.e("Tab category", eventModel.getCategory());
+                                }
+                            }
+                            tabList.clear();
+                            ListviewAdapter adapter = new ListviewAdapter(getActivity(), eventModelArrayList);
+                            mListView.setAdapter(adapter);
+                        } else {
+                            Toast.makeText(getActivity(), "No data found in Database", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Fail to load data...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.e("tab", String.valueOf(tab.getText()));
+                //深拷贝
+                ArrayList<EventModel> newEventModelArrayList = new ArrayList<>();
+                for (EventModel eventModel : eventModelArrayList) {
+                    newEventModelArrayList.add(eventModel.clone());
+                }
+                if ((String) tab.getText() != "All") {
+                    newEventModelArrayList.removeIf(e -> e.getCategory().equals(String.valueOf(tab.getText())));
+                    ListviewAdapter adapter = new ListviewAdapter(getActivity(), newEventModelArrayList);
+                    mListView.setAdapter(adapter);
+                } else {
+                    ListviewAdapter adapter = new ListviewAdapter(getActivity(), newEventModelArrayList);
+                    mListView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+
+
+        });
+
     }
 }

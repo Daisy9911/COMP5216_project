@@ -1,66 +1,267 @@
 package comp5216.sydney.edu.au.haplanet.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import comp5216.sydney.edu.au.haplanet.MainActivity;
+import comp5216.sydney.edu.au.haplanet.MarshmallowPermission;
 import comp5216.sydney.edu.au.haplanet.R;
+import comp5216.sydney.edu.au.haplanet.model.EventModel;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PostFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PostFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //request codes
+    private static final int MY_PERMISSIONS_REQUEST_READ_PHOTOS = 102;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String filePath;
+    private EventModel eventModel;
 
-    public PostFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PostFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PostFragment newInstance(String param1, String param2) {
-        PostFragment fragment = new PostFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    ImageView photopreview;
+    EditText titleText, contentText, locationText, numberOfPeopleText, priceText, timeText, categoryText;
+    TextView startDateText, startTimeText;
+    Button submitBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_post, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+        photopreview = (ImageView) getActivity().findViewById(R.id.iv_select_pic);
+
+        titleText = (EditText) getActivity().findViewById(R.id.txt_title);
+        contentText = (EditText) getActivity().findViewById(R.id.txt_content);
+
+        startDateText = (TextView) getActivity().findViewById(R.id.txt_start_date);
+        startTimeText = (TextView) getActivity().findViewById(R.id.txt_start_time);
+//        DateTimePicker dateTimePicker = getActivity().findViewById(R.id.dateTimePicker);
+        locationText = (EditText) getActivity().findViewById(R.id.txt_location);
+        numberOfPeopleText = (EditText) getActivity().findViewById(R.id.txt_number_of_people);
+        priceText = (EditText) getActivity().findViewById(R.id.txt_Price);
+        timeText = (EditText) getActivity().findViewById(R.id.txt_time);
+        categoryText = (EditText) getActivity().findViewById(R.id.txt_category);
+
+        submitBtn = (Button) getActivity().findViewById(R.id.btn_submit);
+
+        startDateText.setOnClickListener(v -> showDatePickerDialog());
+        startTimeText.setOnClickListener(v -> showTimePickerDialog());
+
+        photopreview.setOnClickListener(v -> takePhoto());
+
+        submitBtn.setOnClickListener(v -> submitPost());
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showDatePickerDialog() {
+        Calendar c = Calendar.getInstance();
+        DatePickerDialog mDatePickerDialog = new DatePickerDialog(getActivity(), R.style.DialogTheme, (view, year, monthOfYear, dayOfMonth) -> {
+            if ((monthOfYear + 1) < 10 && dayOfMonth < 10) {
+                startDateText.setText(year + "-0" + (monthOfYear + 1) + "-0" + dayOfMonth);
+            } else if ((monthOfYear + 1) < 10) {
+                startDateText.setText(year + "-0" + (monthOfYear + 1) + "-" + dayOfMonth);
+            } else if (dayOfMonth < 10) {
+                startDateText.setText(year + "-" + (monthOfYear + 1) + "-0" + dayOfMonth);
+            } else {
+                startDateText.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+            }
+
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        mDatePickerDialog.show();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showTimePickerDialog() {
+        Calendar c = Calendar.getInstance();
+        new TimePickerDialog(getActivity(), R.style.DialogTheme, (timePicker, hour, minute) -> {
+            if (hour < 10 && minute < 10) {
+                startTimeText.setText("0" + hour + ":0" + minute);
+            } else if (hour < 10) {
+                startTimeText.setText("0" + hour + ":" + minute);
+            } else if (minute < 10) {
+                startTimeText.setText(hour + ":0" + minute);
+            } else {
+                startTimeText.setText(hour + ":" + minute);
+            }
+        }, c.get(Calendar.HOUR), c.get(Calendar.MINUTE), true).show();
+    }
+
+    private void takePhoto() {
+        MarshmallowPermission marshmallowPermission = new MarshmallowPermission(getActivity());
+        if (!marshmallowPermission.checkPermissionForReadfiles()) {
+            marshmallowPermission.requestPermissionForReadfiles();
+        } else {
+            // Create intent for picking a photo from the gallery
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+            // Bring up gallery to select a photo
+            startActivityForResult(intent, MY_PERMISSIONS_REQUEST_READ_PHOTOS);
+        }
+
+    }
+
+    private void submitPost() {
+        String title = titleText.getText().toString();
+        String content = contentText.getText().toString();
+
+        String startTime = startDateText.getText().toString() + " " + startTimeText.getText().toString();
+
+        String location = locationText.getText().toString();
+        String numberOfPeople = numberOfPeopleText.getText().toString();
+        String price = priceText.getText().toString();
+        String time = timeText.getText().toString();
+        String category = categoryText.getText().toString();
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        ArrayList<String> uidList = new ArrayList<>();
+        uidList.add(uid);
+
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content) || startTime.equals(" ") || TextUtils.isEmpty(location) || TextUtils.isEmpty(numberOfPeople)
+                || TextUtils.isEmpty(price) || TextUtils.isEmpty(time) || TextUtils.isEmpty(category) || filePath == null) {
+            Toast.makeText(getActivity(), "Please fill in all blanks", Toast.LENGTH_SHORT).show();
+        } else {
+            eventModel = new EventModel(filePath, title, content, startTime, location, numberOfPeople, price, time, category, uidList);
+//                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            if (eventModel != null) {
+
+                String path = eventModel.getPicture();
+
+                Log.e("picture", path);
+                Log.e("title", title);
+
+                File newFile = new File(path);
+                String fileName = path.substring(path.lastIndexOf("/") + 1);
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("files").child(fileName);
+                storageReference.putFile(Uri.fromFile(newFile)).addOnCompleteListener(task -> {
+//                                String newFilepath = task.toString();
+                    CollectionReference files = FirebaseFirestore.getInstance().collection("files");
+
+                    EventModel newEventModel = new EventModel(fileName, title, content, startTime, location, numberOfPeople, price, time, category, uidList);
+                    files.add(newEventModel);
+
+                    Toast.makeText(getActivity(), "Upload Firebase Success", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+
+                });
+
+            }
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post, container, false);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        ImageView ivPreview = (ImageView) getActivity().findViewById(R.id.iv_select_pic);
+
+
+        ivPreview.setVisibility(View.GONE);
+
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_PHOTOS) {
+            if (resultCode == RESULT_OK) {
+                Uri photoUri = data.getData();
+                // Do something with the photo based on Uri
+                Bitmap selectedImage;
+                try {
+                    selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+
+                    // Load the selected image into a preview
+                    ivPreview.setImageBitmap(selectedImage);
+                    ivPreview.setVisibility(View.VISIBLE);
+
+                    filePath = uriToPath(getActivity(), photoUri, 0);
+
+                    Log.e("photoUri", String.valueOf(photoUri));
+                    Log.e("filePath", filePath);
+
+
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
     }
+
+    @SuppressLint("Range")
+    private String uriToPath(Context context, Uri uri, int type) {
+        String path = null;
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        if (cursor.moveToFirst() && type == 0) {
+            try {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        cursor.close();
+        return path;
+    }
+
 }
