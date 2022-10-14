@@ -47,11 +47,22 @@ public class ListviewAdapter extends ArrayAdapter<EventModel> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
+        ViewHolder viewHolder = null;
         View listitemView = convertView;
-        if (listitemView == null) {
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.lv_item, parent, false);
+        if(listitemView == null) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            listitemView = inflater.inflate(R.layout.lv_item, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.mIvIcon = listitemView.findViewById(R.id.iv_image);
+            listitemView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) listitemView.getTag();
         }
+
+//        View listitemView = convertView;
+//        if (listitemView == null) {
+//            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.lv_item, parent, false);
+//        }
 
         EventModel eventModel = getItem(position);
 
@@ -71,11 +82,12 @@ public class ListviewAdapter extends ArrayAdapter<EventModel> {
 
         try {
             File localFile = File.createTempFile("images", "jpg");
+            ViewHolder newViewHolder = viewHolder;
             storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    ivImage.setImageBitmap(bitmap);
+                    newViewHolder.mIvIcon.setImageBitmap(bitmap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
