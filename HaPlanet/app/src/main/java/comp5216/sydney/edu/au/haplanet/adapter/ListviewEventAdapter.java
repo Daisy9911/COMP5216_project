@@ -31,14 +31,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.xuexiang.xui.adapter.simple.ViewHolder;
 
-public class ListviewAdapter extends ArrayAdapter<EventModel> {
+public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
 
     private Context mContext;
 
     ImageView ivImage;
     TextView txtTitle, txtNumber, txtCategory, txtStartTime;
 
-    public ListviewAdapter(@NonNull Context context, ArrayList<EventModel> dataModalArrayList) {
+    public ListviewEventAdapter(@NonNull Context context, ArrayList<EventModel> dataModalArrayList) {
         super(context, 0, dataModalArrayList);
         this.mContext = context;
 
@@ -51,7 +51,7 @@ public class ListviewAdapter extends ArrayAdapter<EventModel> {
         View listitemView = convertView;
         if(listitemView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            listitemView = inflater.inflate(R.layout.lv_item, parent, false);
+            listitemView = inflater.inflate(R.layout.lv_event_item, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.mIvIcon = listitemView.findViewById(R.id.iv_image);
             listitemView.setTag(viewHolder);
