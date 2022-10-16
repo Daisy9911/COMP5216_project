@@ -11,9 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,15 +19,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.xuexiang.xui.XUI;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-import comp5216.sydney.edu.au.haplanet.AddInActivity;
-import comp5216.sydney.edu.au.haplanet.adapter.ListviewAdapter;
+import comp5216.sydney.edu.au.haplanet.adapter.ListviewEventAdapter;
 import comp5216.sydney.edu.au.haplanet.R;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
 
@@ -85,7 +78,7 @@ public class HomeFragment extends Fragment {
                                 }
                             }
                             tabList.clear();
-                            ListviewAdapter adapter = new ListviewAdapter(getActivity(), eventModelArrayList);
+                            ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), eventModelArrayList);
                             mListView.setAdapter(adapter);
                         } else {
                             Toast.makeText(getActivity(), "No data found in Database", Toast.LENGTH_SHORT).show();
@@ -110,10 +103,10 @@ public class HomeFragment extends Fragment {
                 }
                 if ((String) tab.getText() != "All") {
                     newEventModelArrayList.removeIf(e -> e.getCategory().equals(String.valueOf(tab.getText())));
-                    ListviewAdapter adapter = new ListviewAdapter(getActivity(), newEventModelArrayList);
+                    ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), newEventModelArrayList);
                     mListView.setAdapter(adapter);
                 } else {
-                    ListviewAdapter adapter = new ListviewAdapter(getActivity(), newEventModelArrayList);
+                    ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), newEventModelArrayList);
                     mListView.setAdapter(adapter);
                 }
             }

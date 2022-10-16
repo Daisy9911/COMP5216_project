@@ -3,37 +3,30 @@ package comp5216.sydney.edu.au.haplanet.fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import comp5216.sydney.edu.au.haplanet.AddInActivity;
 import comp5216.sydney.edu.au.haplanet.R;
-import comp5216.sydney.edu.au.haplanet.adapter.ListviewAdapter;
+import comp5216.sydney.edu.au.haplanet.adapter.ListviewEventAdapter;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
 
 public class FindFragment extends Fragment {
@@ -82,7 +75,7 @@ public class FindFragment extends Fragment {
                                         Toast.makeText(getActivity(), "No data found in Database", Toast.LENGTH_SHORT).show();
                                     }
 
-                                    ListviewAdapter adapter = new ListviewAdapter(getActivity(), eventModelArrayList);
+                                    ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), eventModelArrayList);
                                     mListView.setAdapter(adapter);
                                 } else {
                                     Toast.makeText(getActivity(), "No data found in Database", Toast.LENGTH_SHORT).show();
