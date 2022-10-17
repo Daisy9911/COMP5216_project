@@ -100,11 +100,7 @@ public class ListviewChatAdapter extends ArrayAdapter<EventModel> {
         ArrayList<String> uidList = eventModel.getUidList();
         int number = uidList.size();
 
-        if (number != Integer.parseInt(eventModel.getNumberOfPeople())) {
-            txtNumber.setText(number + "/" + eventModel.getNumberOfPeople() + " Waiting...");
-        } else {
-            txtNumber.setText("Full");
-        }
+        txtNumber.setText("(" + number + "people" + ")");
 
         listitemView.setOnClickListener(new View.OnClickListener() {
             @Override

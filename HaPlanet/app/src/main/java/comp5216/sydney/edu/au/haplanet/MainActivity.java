@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         nav_view.setOnItemSelectedListener(mNavItemListener);
 
         switchFragment(home_fragment);
-
     }
 
     private BottomNavigationView.OnItemSelectedListener mNavItemListener
