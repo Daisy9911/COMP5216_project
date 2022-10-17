@@ -48,7 +48,7 @@ public class FindFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
-        mListView = getActivity().findViewById(R.id.idLVEvents);
+        mListView = getActivity().findViewById(R.id.idLVFindEvents);
         eventModelArrayList = new ArrayList<>();
 
         db = FirebaseFirestore.getInstance();

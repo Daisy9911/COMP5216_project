@@ -6,7 +6,7 @@
     tools:context=".fragment.FindFragment">
 
     <ListView
-        android:id="@+id/idLVEvents"
+        android:id="@+id/idLVFindEvents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2" />
