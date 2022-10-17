@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp5216.sydney.edu.au.haplanet.R;
-import comp5216.sydney.edu.au.haplanet.adapter.ListviewMessageAdapter;
+import comp5216.sydney.edu.au.haplanet.adapter.ListviewChatAdapter;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
 
 public class MessageFragment extends Fragment {
@@ -64,7 +64,7 @@ public class MessageFragment extends Fragment {
                                 EventModel eventModel = d.toObject(EventModel.class);
                                 eventModelArrayList.add(eventModel);
                             }
-                            ListviewMessageAdapter adapter = new ListviewMessageAdapter(getActivity(), eventModelArrayList);
+                            ListviewChatAdapter adapter = new ListviewChatAdapter(getActivity(), eventModelArrayList);
                             mListView.setAdapter(adapter);
                         } else {
                             Toast.makeText(getActivity(), "No data found in Database", Toast.LENGTH_SHORT).show();

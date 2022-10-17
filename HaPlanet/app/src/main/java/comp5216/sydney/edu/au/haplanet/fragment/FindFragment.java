@@ -4,7 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.MenuItemCompat;
+
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -30,6 +33,7 @@ import comp5216.sydney.edu.au.haplanet.adapter.ListviewEventAdapter;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
 
 public class FindFragment extends Fragment {
+
 
     private String[] mStrs = {};
     private SearchView mSearchView;
@@ -46,9 +50,10 @@ public class FindFragment extends Fragment {
         MenuItem item = menu.findItem(R.id.search);
         mSearchView = (SearchView) MenuItemCompat.getActionView(item);
 
+
         db = FirebaseFirestore.getInstance();
 
-        mListView = getActivity().findViewById(R.id.idLVEvents);
+        mListView = getActivity().findViewById(R.id.idLVFindEvents);
         eventModelArrayList = new ArrayList<>();
 
         db = FirebaseFirestore.getInstance();
@@ -101,6 +106,7 @@ public class FindFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -109,5 +115,4 @@ public class FindFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_find, container, false);
     }
-
 }

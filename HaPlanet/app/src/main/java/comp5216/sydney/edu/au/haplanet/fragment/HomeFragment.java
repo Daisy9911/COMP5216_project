@@ -22,6 +22,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import comp5216.sydney.edu.au.haplanet.adapter.ListviewEventAdapter;
 import comp5216.sydney.edu.au.haplanet.R;
@@ -65,6 +67,8 @@ public class HomeFragment extends Fragment {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if (!queryDocumentSnapshots.isEmpty()) {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            eventModelArrayList.clear();
+                            tabList.clear();
                             tabLayout.addTab(tabLayout.newTab().setText("All"));
                             for (DocumentSnapshot d : list) {
 
@@ -76,10 +80,9 @@ public class HomeFragment extends Fragment {
                                     tabLayout.addTab(tabLayout.newTab().setText(eventModel.getCategory()));
 //                                    Log.e("Tab category", eventModel.getCategory());
                                 }
+                                ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), eventModelArrayList);
+                                mListView.setAdapter(adapter);
                             }
-                            tabList.clear();
-                            ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), eventModelArrayList);
-                            mListView.setAdapter(adapter);
                         } else {
                             Toast.makeText(getActivity(), "No data found in Database", Toast.LENGTH_SHORT).show();
                         }
@@ -101,8 +104,9 @@ public class HomeFragment extends Fragment {
                 for (EventModel eventModel : eventModelArrayList) {
                     newEventModelArrayList.add(eventModel.clone());
                 }
-                if ((String) tab.getText() != "All") {
-                    newEventModelArrayList.removeIf(e -> e.getCategory().equals(String.valueOf(tab.getText())));
+                if (tab.getText() != "All") {
+//                    newEventModelArrayList.removeIf(e -> e.getCategory().equals(String.valueOf(tab.getText())));
+                    newEventModelArrayList = (ArrayList<EventModel>) newEventModelArrayList.stream().filter(e -> e.getCategory().equals(String.valueOf(tab.getText()))).collect(Collectors.toList());
                     ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), newEventModelArrayList);
                     mListView.setAdapter(adapter);
                 } else {
