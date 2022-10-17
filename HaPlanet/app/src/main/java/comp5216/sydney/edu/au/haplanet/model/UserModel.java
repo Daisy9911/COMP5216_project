@@ -8,6 +8,7 @@ public class UserModel {
     public UserModel() {}
 
     public UserModel(String uid, String email) {
+
         this.uid = uid;
         this.email = email;
 

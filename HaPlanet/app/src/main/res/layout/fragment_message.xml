@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".fragment.MessageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--Grid View for displaying our data from Firebase-->
+    <ListView
+        android:id="@+id/idLVMessages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Message Page" />
+        android:numColumns="2" />
 
 </FrameLayout>
