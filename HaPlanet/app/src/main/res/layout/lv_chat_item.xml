@@ -53,6 +53,7 @@
                     android:layout_toRightOf="@id/lv_txt_category"
                     android:padding="3dp"
                     android:text="Start Time"
+
                     android:textSize="10dp"
                     android:textColor="#808080" />
 
