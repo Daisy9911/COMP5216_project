@@ -24,6 +24,9 @@ import comp5216.sydney.edu.au.haplanet.AddInActivity;
 import comp5216.sydney.edu.au.haplanet.R;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -81,13 +84,20 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
                 .child("files").child(eventModel.getPicture());
 
         try {
-            File localFile = File.createTempFile("images", "jpg");
+            File localFile = File.createTempFile("images", ".jpg");
             ViewHolder newViewHolder = viewHolder;
             storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    newViewHolder.mIvIcon.setImageBitmap(bitmap);
+
+                    Glide.with(getContext())
+                            .load(localFile.getAbsolutePath())
+                            //transition(TransitionOptions transitionOptions)
+                            .transition(DrawableTransitionOptions.withCrossFade())
+                            .into(newViewHolder.mIvIcon);
+
+//                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+//                    newViewHolder.mIvIcon.setImageBitmap(bitmap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,8 @@ public class ListviewMessageAdapter extends ArrayAdapter<MessageModel> {
 
     private Context mContext;
 
-    TextView txtReply, txtmReply;
+    TextView txtReply, txtmReply, txtTime, txtmTime;
+    LinearLayout leftLayout, rightLayout;
     String messageTitle;
 
     FirebaseFirestore db;
@@ -49,13 +51,28 @@ public class ListviewMessageAdapter extends ArrayAdapter<MessageModel> {
         txtReply = listitemView.findViewById(R.id.gv_txt_reply);
         txtmReply = listitemView.findViewById(R.id.gv_txt_mreply);
 
+        leftLayout = listitemView.findViewById(R.id.left_layout);
+        rightLayout = listitemView.findViewById(R.id.right_layout);
+
+        txtTime = listitemView.findViewById(R.id.gv_txt_time);
+        txtmTime = listitemView.findViewById(R.id.gv_txt_mtime);
+
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        String date = String.valueOf(messageModel.getDate());
+        date = date.substring(0, date.indexOf("GMT"));
         if (uid.equals(messageModel.getUid())) {
-            txtReply.setVisibility(View.GONE);
+            leftLayout.setVisibility(View.GONE);
+            rightLayout.setVisibility(View.VISIBLE);
+//            txtReply.setVisibility(View.GONE);
             txtmReply.setText(messageModel.getReply());
+            txtmTime.setText(date);
         } else {
             txtReply.setText(messageModel.getReply());
-            txtmReply.setVisibility(View.GONE);
+            rightLayout.setVisibility(View.GONE);
+            leftLayout.setVisibility(View.VISIBLE);
+//            txtmReply.setVisibility(View.GONE);
+            txtTime.setText(date);
         }
 
         return listitemView;

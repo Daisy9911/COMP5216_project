@@ -11,7 +11,7 @@
     <ListView
         android:id="@+id/idLVMessages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@id/layout_input"
         android:numColumns="2" />
 

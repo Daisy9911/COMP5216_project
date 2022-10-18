@@ -4,35 +4,60 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="4dp">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:id="@+id/left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_left_message">
 
         <TextView
             android:id="@+id/gv_txt_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:text="Event Title"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/gv_txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:text="Time"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/right_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@drawable/ic_right_message">
+
+        <TextView
+            android:id="@+id/gv_txt_mreply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:padding="3dp"
             android:text="Event Title"
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/gv_txt_mreply"
-            android:layout_width="match_parent"
+            android:id="@+id/gv_txt_mtime"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:layout_margin="2dp"
-            android:padding="3dp"
-            android:text="Event Title"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:text="Time"
             android:textColor="@color/black" />
 
     </LinearLayout>
-
 
 </LinearLayout>
