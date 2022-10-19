@@ -258,7 +258,7 @@ public class UserFragment extends Fragment {
         btnReset.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                resetPassword();
+                setBtnReset();
             }
         });
 
@@ -278,6 +278,17 @@ public class UserFragment extends Fragment {
     private void logout() {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getActivity(), LoginActivity.class));
+    }
+
+    public void setBtnReset() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("cancel this activity")
+                .setMessage("Are you sure to cancel this edit?")
+                .setPositiveButton("Yes", (dialogInterface, i) -> resetPassword())
+                .setNegativeButton("No", (dialogInterface, i) -> {
+
+                });
+        builder.create().show();
     }
 
     private void resetPassword() {
