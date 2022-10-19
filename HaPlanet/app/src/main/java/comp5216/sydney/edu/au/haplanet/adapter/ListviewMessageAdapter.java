@@ -23,7 +23,7 @@ public class ListviewMessageAdapter extends ArrayAdapter<MessageModel> {
 
     private Context mContext;
 
-    TextView txtReply, txtmReply, txtTime, txtmTime;
+    TextView txtReply, txtmReply;
     LinearLayout leftLayout, rightLayout;
     String messageTitle;
 
@@ -54,8 +54,8 @@ public class ListviewMessageAdapter extends ArrayAdapter<MessageModel> {
         leftLayout = listitemView.findViewById(R.id.left_layout);
         rightLayout = listitemView.findViewById(R.id.right_layout);
 
-        txtTime = listitemView.findViewById(R.id.gv_txt_time);
-        txtmTime = listitemView.findViewById(R.id.gv_txt_mtime);
+//        txtTime = listitemView.findViewById(R.id.gv_txt_time);
+//        txtmTime = listitemView.findViewById(R.id.gv_txt_mtime);
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -66,13 +66,13 @@ public class ListviewMessageAdapter extends ArrayAdapter<MessageModel> {
             rightLayout.setVisibility(View.VISIBLE);
 //            txtReply.setVisibility(View.GONE);
             txtmReply.setText(messageModel.getReply());
-            txtmTime.setText(date);
+//            txtmTime.setText(date);
         } else {
             txtReply.setText(messageModel.getReply());
             rightLayout.setVisibility(View.GONE);
             leftLayout.setVisibility(View.VISIBLE);
 //            txtmReply.setVisibility(View.GONE);
-            txtTime.setText(date);
+//            txtTime.setText(date);
         }
 
         return listitemView;

@@ -22,14 +22,15 @@
             android:padding="10dp"
             android:text="Event Title"
             android:textColor="@color/black" />
-        <TextView
-            android:id="@+id/gv_txt_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:text="Time"
-            android:textColor="@color/black" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/gv_txt_time"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_gravity="right"-->
+        <!--            android:gravity="bottom"-->
+        <!--            android:padding="10dp"-->
+        <!--            android:text="Time"-->
+        <!--            android:textColor="@color/black" />-->
 
     </LinearLayout>
 
@@ -49,14 +50,14 @@
             android:text="Event Title"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/gv_txt_mtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:text="Time"
-            android:textColor="@color/black" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/gv_txt_mtime"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:padding="10dp"-->
+        <!--            android:text="Time"-->
+        <!--            android:textColor="@color/black" />-->
 
     </LinearLayout>
 
