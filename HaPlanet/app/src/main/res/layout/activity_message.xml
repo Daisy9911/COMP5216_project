@@ -10,10 +10,10 @@
     <!--Grid View for displaying our data from Firebase-->
     <ListView
         android:id="@+id/idLVMessages"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@id/layout_input"
-        android:numColumns="2" />
+        android:numColumns="1" />
 
     <RelativeLayout
         android:id="@+id/layout_input"
