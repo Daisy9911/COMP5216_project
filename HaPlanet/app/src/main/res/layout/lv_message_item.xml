@@ -12,7 +12,7 @@
         android:id="@+id/left_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_left_message">
+        android:background="@drawable/ic_left">
 
         <TextView
             android:id="@+id/gv_txt_reply"
@@ -39,14 +39,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="@drawable/ic_right_message">
+        android:background="@drawable/ic_right">
 
         <TextView
             android:id="@+id/gv_txt_mreply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="3dp"
+            android:padding="10dp"
             android:text="Event Title"
             android:textColor="@color/black" />
 
