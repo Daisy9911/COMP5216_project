@@ -33,6 +33,20 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Username"
+            android:drawableStart="@drawable/custom_username_icon"
+            android:background="@drawable/custom_input"
+            android:layout_marginTop="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:drawablePadding="15dp"
+            android:inputType="textPersonName"
+            android:textSize="15sp" />
+
+        <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -59,6 +73,28 @@
             android:drawablePadding="15dp"
             android:inputType="textPassword"
             android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_add_avatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/ic_add_image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Add an avatar"
+                android:textColor="#33989090"/>
+
+        </LinearLayout>
 
         <com.xuexiang.xui.widget.textview.supertextview.SuperButton
             android:id="@+id/btn_register"

@@ -46,7 +46,7 @@
         </provider>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".RegisterActivity"
             android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
@@ -56,10 +56,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".AddInActivity" />
         <activity android:name=".MessageActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".UserActivity" />
+        <activity android:name=".ResetActivity" />
     </application>
 
 </manifest>
