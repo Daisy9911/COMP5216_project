@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.MessageFragment">
+    tools:context=".fragment.MessageFragment"
+    android:orientation="vertical">
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="10dp" />
 
     <!--Grid View for displaying our data from Firebase-->
     <ListView
@@ -30,4 +31,4 @@
         android:layout_marginTop="20dp"
         android:text="No more conversation" />
 
-</FrameLayout>
+</LinearLayout>
