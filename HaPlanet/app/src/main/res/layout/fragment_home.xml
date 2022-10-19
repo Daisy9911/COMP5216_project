@@ -25,12 +25,20 @@
     <ListView
         android:id="@+id/idLVEvents"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:cacheColorHint="@color/white"
         android:divider="#FAFAFB"
         android:dividerHeight="20dp"
         android:numColumns="2"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp" />
+
+    <TextView
+        android:id="@+id/txt_information"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No more activity" />
 
 </LinearLayout>

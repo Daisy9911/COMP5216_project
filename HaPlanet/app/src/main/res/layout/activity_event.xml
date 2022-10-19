@@ -19,14 +19,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_pic"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_marginTop="5dp"
-            android:background="#f4f4f4"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_add_image" />
+            android:src="@drawable/ic_add_image"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/circleImageStyle"/>
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_pic"-->
+<!--            android:layout_width="130dp"-->
+<!--            android:layout_height="130dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:background="#f4f4f4"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_add_image" />-->
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -98,6 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
         android:textAlignment="viewStart"
         android:textSize="15dp"
         android:textStyle="bold" />
@@ -107,22 +117,30 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_owner_pic"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            android:background="#f4f4f4"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_person" />
+            android:src="@drawable/ic_person"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/circleImageStyle"/>
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_owner_pic"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:background="#f4f4f4"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_person" />-->
 
         <TextView
             android:id="@+id/txt_owner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textSize="15dp" />
 
     </LinearLayout>
 
@@ -134,9 +152,7 @@
         android:background="@drawable/radius"
         android:columnCount="2"
         android:orientation="horizontal"
-        android:rowCount="2"
-        android:layout_marginLeft="7dp" >
-
+        android:rowCount="2">
 
         <TextView
             android:layout_width="wrap_content"
@@ -163,27 +179,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
+            android:layout_marginTop="13dp"
             android:background="@drawable/textview_backgroud"
-            android:textSize="10dp"
             android:textColor="#D69292"
-            android:layout_marginTop="13dp" />
+            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/txt_remain_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="13dp"
             android:background="@drawable/textview_backgroud"
-            android:textSize="10dp"
             android:textColor="#D69292"
-            android:layout_marginTop="13dp" />
+            android:textSize="10dp" />
     </GridLayout>
 
     <TextView
         android:id="@+id/txt_content"
         android:layout_width="match_parent"
         android:layout_height="129dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/radius"
         android:minHeight="30dp"

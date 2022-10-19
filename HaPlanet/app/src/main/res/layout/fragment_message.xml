@@ -5,11 +5,29 @@
     android:layout_height="match_parent"
     tools:context=".fragment.MessageFragment">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
     <!--Grid View for displaying our data from Firebase-->
     <ListView
+        android:layout_marginTop="10dp"
         android:id="@+id/idLVMessages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2" />
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:divider="@color/white"
+        android:dividerHeight="15dp" />
+
+    <TextView
+        android:id="@+id/txt_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="No more conversation" />
 
 </FrameLayout>

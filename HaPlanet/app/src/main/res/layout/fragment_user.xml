@@ -7,23 +7,39 @@
     android:orientation="vertical"
     tools:context=".fragment.UserFragment">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="28dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_profile_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="#f4f4f4"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_person" />
+            android:src="@drawable/fake_photo"
+            android:scaleType="fitXY"
+            android:layout_marginStart="30dp"
+            app:shapeAppearanceOverlay="@style/circleImageStyle"/>
+
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/iv_profile_image"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:background="#f4f4f4"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_person" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginStart="20dp">
             <!--Image view for displaying our image-->
             <TextView
                 android:id="@+id/txt_username"
@@ -31,7 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:padding="3dp"
-                android:text="Username"
+                android:text="Test"
+                android:textSize="25dp"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@color/black" />
 
@@ -45,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:padding="3dp"
+                    android:textSize="15dp"
                     android:text="Personal Introduction"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
@@ -54,9 +73,11 @@
 
             <ImageView
                 android:id="@+id/iv_edit_profile"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="#f4f4f4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="50dp"
                 android:onClick="editOnClick"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_edit" />
@@ -110,18 +131,19 @@
     <ListView
         android:id="@+id/idLVUserEvents"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2"
-        android:divider="#FAFAFB"
-        android:dividerHeight="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
-        android:layout_marginRight="18dp" />
+        android:layout_marginRight="18dp"
+        android:divider="@color/white"
+        android:dividerHeight="20dp"
+        android:numColumns="2" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/txt_information"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:text="No more information" />-->
+    <TextView
+        android:id="@+id/txt_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="No more information" />
 
 </LinearLayout>
