@@ -30,8 +30,11 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable-v24/ic_lock_focus.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable-v24/ic_phone_focus.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_user_focus.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/circle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/custom_email_icon.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/custom_input.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/custom_intro_icon.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/custom_lock_icon.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/custom_phone_icon.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/custom_user_icon.xml" value="0.1195" />
@@ -40,6 +43,7 @@
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/ic_find.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/ic_lock.xml" value="0.1195" />
         <entry key="app/src/main/res/drawable/ic_message.xml" value="0.1085" />

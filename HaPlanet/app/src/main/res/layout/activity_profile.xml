@@ -27,6 +27,20 @@
 <!--        android:scaleType="centerCrop"-->
 <!--        android:src="@drawable/ic_person" />-->
 
+<!--    <EditText-->
+<!--        android:id="@+id/et_email"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:hint="@string/email_address"-->
+<!--        android:drawableStart="@drawable/custom_email_icon"-->
+<!--        android:background="@drawable/custom_input"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:paddingStart="15dp"-->
+<!--        android:paddingEnd="15dp"-->
+<!--        android:drawablePadding="15dp"-->
+<!--        android:inputType="textEmailAddress"-->
+<!--        android:textSize="15sp" />-->
+
     <EditText
         android:id="@+id/et_username"
         android:layout_marginLeft="30dp"
@@ -34,9 +48,11 @@
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/custom_name_icon"
+        android:drawablePadding="15dp"
         android:background="@drawable/profile_textview"
         android:textColor="#807D7D"
-        android:textSize="25sp"
+        android:textSize="15sp"
         android:hint="Nickname"/>
 
     <EditText
@@ -47,10 +63,12 @@
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/custom_intro_icon"
+        android:drawablePadding="15dp"
         android:background="@drawable/profile_textview"
         android:textColor="#807D7D"
-        android:textSize="25sp"
-        android:hint="Personal introduction" />
+        android:textSize="15sp"
+        android:hint="Personal Introduction" />
 
 <!--    <EditText-->
 <!--        android:id="@+id/et_gender"-->
