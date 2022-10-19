@@ -9,19 +9,19 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,40 +40,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import comp5216.sydney.edu.au.haplanet.adapter.ListviewEventAdapter;
-import comp5216.sydney.edu.au.haplanet.model.EventModel;
-import comp5216.sydney.edu.au.haplanet.model.ProfileModel;
+import comp5216.sydney.edu.au.haplanet.model.UserModel;
 
-public class ProfileActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity {
 
     //request codes
     private static final int MY_PERMISSIONS_REQUEST_READ_PHOTOS = 102;
     private String filePath, updateFilepath;
 
     ImageView ivImage;
-    EditText txtUsername, txtIntroduction, txtGender, txtAge;
+    EditText txtUsername, txtIntroduction;
     Button btnModify;
     //    ArrayList<ProfileModel> profileModelArrayList;
-    ProfileModel profileModel, modifyProfileModel;
+    UserModel userModel, modifyUserModel;
     FirebaseFirestore db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_user);
         ivImage = findViewById(R.id.iv_profile_image);
         txtUsername = findViewById(R.id.et_username);
         txtIntroduction = findViewById(R.id.et_introduction);
 //        txtGender = findViewById(R.id.et_gender);
-        txtAge = findViewById(R.id.et_age);
+//        txtAge = findViewById(R.id.et_age);
         btnModify = findViewById(R.id.btn_modify);
 
 
         db = FirebaseFirestore.getInstance();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        db.collection("profiles").get()
+        db.collection("users").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -81,17 +79,17 @@ public class ProfileActivity extends AppCompatActivity {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for (DocumentSnapshot d : list) {
 
-                                ProfileModel newProfileModel = d.toObject(ProfileModel.class);
+                                UserModel newUserModel = d.toObject(UserModel.class);
 
-                                if (Objects.equals(newProfileModel.getUid(), uid)) {
-                                    profileModel = newProfileModel;
+                                if (Objects.equals(newUserModel.getUid(), uid)) {
+                                    userModel = newUserModel;
                                 }
 
-                                if (profileModel != null) {
+                                if (userModel != null) {
 
                                     FirebaseStorage storage = FirebaseStorage.getInstance();
                                     StorageReference storageRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com")
-                                            .child("profiles").child(profileModel.getPicture());
+                                            .child("users").child(userModel.getAvatarUrl());
 
                                     try {
                                         File localFile = File.createTempFile("images", "jpg");
@@ -110,22 +108,21 @@ public class ProfileActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
 
-                                    txtUsername.setText(profileModel.getUsername());
-                                    txtIntroduction.setText(profileModel.getIntroduction());
-                                    txtAge.setText(String.valueOf(profileModel.getAge()));
-                                    updateFilepath = profileModel.getPicture();
+                                    txtUsername.setText(userModel.getUsername());
+                                    txtIntroduction.setText(userModel.getIntroduction());
+                                    updateFilepath = userModel.getAvatarUrl();
 
                                 }
 
                             }
                         } else {
-                            Toast.makeText(ProfileActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
                     }
                 });
         ivImage.setOnClickListener(v -> takePhoto());
@@ -209,116 +206,97 @@ public class ProfileActivity extends AppCompatActivity {
 
         String username = txtUsername.getText().toString();
         String introduction = txtIntroduction.getText().toString();
-        String age = txtAge.getText().toString();
+//        String age = txtAge.getText().toString();
+
+        Log.e("username", username);
+        Log.e("introduction", String.valueOf(introduction.isEmpty()));
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ArrayList<String> uidList = new ArrayList<>();
         uidList.add(uid);
 
-        if (username.isEmpty() || introduction.isEmpty() || age.isEmpty() || updateFilepath == null) {
-            Toast.makeText(this, "Please fill in all blanks", Toast.LENGTH_SHORT).show();
-        } else {
-            modifyProfileModel = new ProfileModel(filePath, uid, username, introduction, Integer.parseInt(age));
-//                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            if (filePath != null) {
+        if (filePath != null) {
 
-                String path = modifyProfileModel.getPicture();
+            File newFile = new File(filePath);
+            String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
 
-//                Log.e("picture", path);
-
-                File newFile = new File(path);
-                String fileName = path.substring(path.lastIndexOf("/") + 1);
-
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("profiles").child(fileName);
-                storageReference.putFile(Uri.fromFile(newFile)).addOnCompleteListener(task -> {
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("users").child(fileName);
+            storageReference.putFile(Uri.fromFile(newFile)).addOnCompleteListener(task -> {
 //                                String newFilepath = task.toString();
-                    CollectionReference files = FirebaseFirestore.getInstance().collection("profiles");
+                CollectionReference files = FirebaseFirestore.getInstance().collection("users");
 
-                    ProfileModel newModifyProfileModel = new ProfileModel(fileName, uid, username, introduction, Integer.parseInt(age));
-                    int[] flag = {0};
-
-                    db.collection("profiles").get()
-                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                    if (!queryDocumentSnapshots.isEmpty()) {
-                                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                        for (DocumentSnapshot d : list) {
-                                            ProfileModel updateProfileModel = d.toObject(ProfileModel.class);
-                                            String id = d.getId();
-
-                                            if (Objects.equals(updateProfileModel.getUid(), uid)) {
-                                                FirebaseFirestore
-                                                        .getInstance().collection("profiles").document(id).update("fileName", fileName);
-                                                FirebaseFirestore
-                                                        .getInstance().collection("profiles").document(id).update("username", username);
-                                                FirebaseFirestore
-                                                        .getInstance().collection("profiles").document(id).update("introduction", introduction);
-                                                FirebaseFirestore
-                                                        .getInstance().collection("profiles").document(id).update("age", Integer.parseInt(age));
-                                                flag[0] = 1;
-                                            }
-                                        }
-
-                                        if (flag[0] != 1) {
-                                            files.add(newModifyProfileModel);
-                                            Toast.makeText(ProfileActivity.this, "Upload Firebase Success", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    } else {
-                                        Toast.makeText(ProfileActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(ProfileActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-
-//                    Intent intent = new Intent(this, MainActivity.class);
-//                    startActivity(intent);
-
-                });
-
-            } else {
-
-                db.collection("profiles").get()
+                db.collection("users").get()
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 if (!queryDocumentSnapshots.isEmpty()) {
                                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                     for (DocumentSnapshot d : list) {
-                                        ProfileModel updateProfileModel = d.toObject(ProfileModel.class);
+                                        UserModel updateUserModel = d.toObject(UserModel.class);
                                         String id = d.getId();
 
-                                        if (Objects.equals(updateProfileModel.getUid(), uid)) {
+                                        if (Objects.equals(updateUserModel.getUid(), uid)) {
                                             FirebaseFirestore
-                                                    .getInstance().collection("profiles").document(id).update("username", username);
+                                                    .getInstance().collection("users").document(id).update("avatarUrl", fileName);
                                             FirebaseFirestore
-                                                    .getInstance().collection("profiles").document(id).update("introduction", introduction);
-                                            FirebaseFirestore
-                                                    .getInstance().collection("profiles").document(id).update("age", Integer.parseInt(age));
+                                                    .getInstance().collection("users").document(id).update("username", username);
+                                            if(!introduction.isEmpty()) {
+                                                FirebaseFirestore
+                                                        .getInstance().collection("users").document(id).update("introduction", introduction);
+                                            }
                                         }
                                     }
-
                                 } else {
-                                    Toast.makeText(ProfileActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UserActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ProfileActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
                             }
                         });
-            }
 
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
 
+//                    Intent intent = new Intent(this, MainActivity.class);
+//                    startActivity(intent);
+
+            });
+
+        } else {
+
+            db.collection("users").get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                for (DocumentSnapshot d : list) {
+                                    UserModel updateUserModel = d.toObject(UserModel.class);
+                                    String id = d.getId();
+
+                                    if (Objects.equals(updateUserModel.getUid(), uid)) {
+                                        FirebaseFirestore
+                                                .getInstance().collection("users").document(id).update("username", username);
+                                        FirebaseFirestore
+                                                .getInstance().collection("users").document(id).update("introduction", introduction);
+                                    }
+                                }
+
+                            } else {
+                                Toast.makeText(UserActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(UserActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
     }
 }
