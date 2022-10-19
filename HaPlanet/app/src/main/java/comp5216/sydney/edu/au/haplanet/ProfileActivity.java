@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String filePath, updateFilepath;
 
     ImageView ivImage;
-    TextView txtUsername, txtIntroduction, txtGender, txtAge;
+    EditText txtUsername, txtIntroduction, txtGender, txtAge;
     Button btnModify;
     //    ArrayList<ProfileModel> profileModelArrayList;
     ProfileModel profileModel, modifyProfileModel;

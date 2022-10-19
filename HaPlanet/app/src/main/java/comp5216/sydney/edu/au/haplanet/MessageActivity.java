@@ -49,6 +49,8 @@ public class MessageActivity extends AppCompatActivity {
 
         messageModelArrayList = new ArrayList<MessageModel>();
         mListView = findViewById(R.id.idLVMessages);
+        //去除listView边框
+        mListView.setDivider(null);
         btn_submit = findViewById(R.id.btn_submit);
         txtMessage = findViewById(R.id.et_input);
 

@@ -19,6 +19,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,11 +41,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import comp5216.sydney.edu.au.haplanet.adapter.ListviewEventAdapter;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
+import comp5216.sydney.edu.au.haplanet.model.ProfileModel;
 
 public class AddInActivity extends AppCompatActivity {
 
-    ImageView ivImage;
+    ImageView ivImage, ivAvaterImage;
     TextView txtTitle, txtTime, txtCategory, txtOwner, txtContent, txtStartTime, txtLocation, txtNumberOfPeople, txtPrice, txtRemainNumber, txtRemainNumberTitle;
     Button btnJoin;
     ArrayList<EventModel> eventModelArrayList;
@@ -59,6 +63,7 @@ public class AddInActivity extends AppCompatActivity {
         eventModel = (EventModel) getIntent().getSerializableExtra("eventModel");
 
         ivImage = findViewById(R.id.iv_pic);
+        ivAvaterImage = findViewById(R.id.iv_owner_pic);
 
         txtTitle = findViewById(R.id.txt_title);
         txtTime = findViewById(R.id.txt_time);
@@ -75,16 +80,21 @@ public class AddInActivity extends AppCompatActivity {
         btnJoin = findViewById(R.id.btn_join);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com").child("files").child(eventModel.getPicture());
+        StorageReference storageEventRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com").child("files").child(eventModel.getPicture());
 
         try {
-            final File localFile = File.createTempFile("images", "jpg");
-            storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            File localEventFile = File.createTempFile("images", "jpg");
+            storageEventRef.getFile(localEventFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    ivImage.setImageBitmap(bitmap);
+//                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+//                    ivImage.setImageBitmap(bitmap);
+                    Glide.with(AddInActivity.this)
+                            .load(localEventFile.getAbsolutePath())
+                            //transition(TransitionOptions transitionOptions)
+                            .transition(DrawableTransitionOptions.withCrossFade())
+                            .into(ivImage);
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -95,6 +105,7 @@ public class AddInActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setOwnerImage();
 
 //        Log.e("Content",eventModel.getDescription());
 
@@ -158,4 +169,66 @@ public class AddInActivity extends AppCompatActivity {
         }
     }
 
+    public void setOwnerImage() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        String ownerUid = eventModel.getUidList().get(0);
+
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("profiles").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            int flag = 1;
+                            for (DocumentSnapshot d : list) {
+                                ProfileModel profileModel = d.toObject(ProfileModel.class);
+                                if (Objects.equals(profileModel.getUid(), ownerUid)) {
+                                    String profileUrl = profileModel.getPicture();
+                                    StorageReference storageAvatarRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com").child("profiles").child(profileUrl);
+
+                                    try {
+                                        File localAvatarFile = File.createTempFile("images", "jpg");
+                                        storageAvatarRef.getFile(localAvatarFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                Glide.with(AddInActivity.this)
+                                                        .load(localAvatarFile.getAbsolutePath())
+                                                        //transition(TransitionOptions transitionOptions)
+                                                        .transition(DrawableTransitionOptions.withCrossFade())
+                                                        .into(ivAvaterImage);
+
+                                                if(profileModel.getUsername() != null) {
+                                                    txtOwner.setText(profileModel.getUsername() + " invites you to join...");
+                                                } else {
+                                                    txtOwner.setText(" invites you to join...");
+                                                }
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                            }
+                                        });
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+                            if(flag == 1) {
+                                txtOwner.setText("invites you to join...");
+                            }
+                        } else {
+                            Toast.makeText(AddInActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddInActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }

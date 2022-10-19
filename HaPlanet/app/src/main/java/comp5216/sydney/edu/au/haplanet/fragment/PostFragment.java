@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,8 +38,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +56,9 @@ import comp5216.sydney.edu.au.haplanet.R;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class PostFragment extends Fragment {
 
@@ -177,12 +186,11 @@ public class PostFragment extends Fragment {
             if (eventModel != null) {
 
                 String path = eventModel.getPicture();
+                String fileName = path.substring(path.lastIndexOf("/") + 1);
 
-                Log.e("picture", path);
-                Log.e("title", title);
+                Log.e("path", path);
 
                 File newFile = new File(path);
-                String fileName = path.substring(path.lastIndexOf("/") + 1);
 
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("files").child(fileName);
                 storageReference.putFile(Uri.fromFile(newFile)).addOnCompleteListener(task -> {
@@ -224,9 +232,12 @@ public class PostFragment extends Fragment {
                     ivPreview.setVisibility(View.VISIBLE);
 
                     filePath = uriToPath(getActivity(), photoUri, 0);
+                    File file = new File(filePath);
+                    Log.e("file before", String.valueOf(file.length()));
 
-                    Log.e("photoUri", String.valueOf(photoUri));
-                    Log.e("filePath", filePath);
+                    File newFile = new File(filePath.substring(0, filePath.lastIndexOf("/") + 1) + "1" + filePath.substring(filePath.lastIndexOf("/") + 1));
+                    compressBitmapToFile(selectedImage, newFile);
+                    filePath = filePath.substring(0, filePath.lastIndexOf("/")) + "_" + filePath.substring(filePath.lastIndexOf("/") + 1);
 
 
                 } catch (FileNotFoundException e) {
@@ -262,6 +273,29 @@ public class PostFragment extends Fragment {
         }
         cursor.close();
         return path;
+    }
+
+    public static void compressBitmapToFile(Bitmap bmp, File file) {
+        // 尺寸压缩倍数
+        int ratio = 8;
+        // 压缩Bitmap到对应尺寸
+        Bitmap result = Bitmap.createBitmap(bmp.getWidth() / ratio, bmp.getHeight() / ratio, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        Rect rect = new Rect(0, 0, bmp.getWidth() / ratio, bmp.getHeight() / ratio);
+        canvas.drawBitmap(bmp, null, rect, null);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        // 把压缩后的数据存放到baos中
+        result.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(baos.toByteArray());
+            fos.flush();
+            fos.close();
+            Log.e("file after", String.valueOf(file.length()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
