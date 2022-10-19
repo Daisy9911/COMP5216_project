@@ -151,8 +151,8 @@ public class UserFragment extends Fragment {
 
                             if (userModel != null) {
 
-                                txtUsername.setText("Username: "+userModel.getUsername());
-                                txtIntroduction.setText("Introduction: "+userModel.getIntroduction());
+                                txtUsername.setText(userModel.getUsername());
+                                txtIntroduction.setText(userModel.getIntroduction());
 
                                 FirebaseStorage storage = FirebaseStorage.getInstance();
                                 StorageReference storageRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com")
