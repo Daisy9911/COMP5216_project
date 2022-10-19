@@ -124,7 +124,7 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
 
                 Intent intent = new Intent(mContext, AddInActivity.class);
                 intent.putExtra("eventModel", eventModel);
-                Log.e("Title", eventModel.getTitle());
+//                Log.e("Title", eventModel.getTitle());
 
                 mContext.startActivity(intent);
 
