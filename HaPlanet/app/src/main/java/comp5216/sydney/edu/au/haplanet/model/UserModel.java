@@ -5,12 +5,19 @@ public class UserModel {
     private String uid;
     private String email;
 
+    private String avatarUrl;
+    private String username;
+    private String introduction;
+
     public UserModel() {}
 
-    public UserModel(String uid, String email) {
+    public UserModel(String uid, String email, String avatarUrl, String username, String introduction) {
 
         this.uid = uid;
         this.email = email;
+        this.avatarUrl = avatarUrl;
+        this.username = username;
+        this.introduction = introduction;
 
     }
 
@@ -30,4 +37,27 @@ public class UserModel {
         this.email = email;
     }
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 }

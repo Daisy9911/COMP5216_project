@@ -1,21 +1,12 @@
 package comp5216.sydney.edu.au.haplanet;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,16 +15,12 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.xuexiang.xui.XUI;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,9 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import comp5216.sydney.edu.au.haplanet.adapter.ListviewEventAdapter;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
-import comp5216.sydney.edu.au.haplanet.model.ProfileModel;
+import comp5216.sydney.edu.au.haplanet.model.UserModel;
 
 public class AddInActivity extends AppCompatActivity {
 
@@ -184,9 +170,9 @@ public class AddInActivity extends AppCompatActivity {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             int flag = 1;
                             for (DocumentSnapshot d : list) {
-                                ProfileModel profileModel = d.toObject(ProfileModel.class);
-                                if (Objects.equals(profileModel.getUid(), ownerUid)) {
-                                    String profileUrl = profileModel.getPicture();
+                                UserModel userModel = d.toObject(UserModel.class);
+                                if (Objects.equals(userModel.getUid(), ownerUid)) {
+                                    String profileUrl = userModel.getAvatarUrl();
                                     StorageReference storageAvatarRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com").child("profiles").child(profileUrl);
 
                                     try {
@@ -200,8 +186,8 @@ public class AddInActivity extends AppCompatActivity {
                                                         .transition(DrawableTransitionOptions.withCrossFade())
                                                         .into(ivAvaterImage);
 
-                                                if(profileModel.getUsername() != null) {
-                                                    txtOwner.setText(profileModel.getUsername() + " invites you to join...");
+                                                if(userModel.getUsername() != null) {
+                                                    txtOwner.setText(userModel.getUsername() + " invites you to join...");
                                                 } else {
                                                     txtOwner.setText(" invites you to join...");
                                                 }

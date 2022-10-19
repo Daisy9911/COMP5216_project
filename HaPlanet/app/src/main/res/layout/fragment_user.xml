@@ -82,6 +82,18 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_edit" />
 
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="logout"/>
+
+            <Button
+                android:id="@+id/btn_resetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="reset"/>
+
         </LinearLayout>
     </LinearLayout>
 

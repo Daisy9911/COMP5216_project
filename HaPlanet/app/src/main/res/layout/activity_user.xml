@@ -83,18 +83,18 @@
 <!--        android:textSize="25sp"-->
 <!--        android:hint="Gender"/>-->
 
-    <EditText
-        android:id="@+id/et_age"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:padding="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/profile_textview"
-        android:textColor="#807D7D"
-        android:textSize="25sp"
-        android:hint="Age"/>
+<!--    <EditText-->
+<!--        android:id="@+id/et_age"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginRight="30dp"-->
+<!--        android:padding="15dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/white"-->
+<!--        android:textColor="#807D7D"-->
+<!--        android:textSize="25sp"-->
+<!--        android:hint="Age"/>-->
 
     <Button
         android:id="@+id/btn_modify"

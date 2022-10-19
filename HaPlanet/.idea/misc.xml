@@ -61,6 +61,8 @@
         <entry key="app/src/main/res/layout/activity_message.xml" value="0.2333146950394187" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3388566872269187" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.1793478260869565" />
+        <entry key="app/src/main/res/layout/activity_reset.xml" value="0.15443840579710144" />
+        <entry key="app/src/main/res/layout/activity_user.xml" value="0.15443840579710144" />
         <entry key="app/src/main/res/layout/fragment_find.xml" value="0.21873474121093753" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.23419342041015626" />
         <entry key="app/src/main/res/layout/fragment_message.xml" value="0.22752990722656252" />

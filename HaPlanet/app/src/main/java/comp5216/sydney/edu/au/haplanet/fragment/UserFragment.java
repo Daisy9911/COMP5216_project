@@ -1,5 +1,8 @@
 package comp5216.sydney.edu.au.haplanet.fragment;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,8 +23,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.xuexiang.xui.XUI;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,29 +44,31 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import comp5216.sydney.edu.au.haplanet.ProfileActivity;
+import comp5216.sydney.edu.au.haplanet.LoginActivity;
+import comp5216.sydney.edu.au.haplanet.RegisterActivity;
+import comp5216.sydney.edu.au.haplanet.ResetActivity;
+import comp5216.sydney.edu.au.haplanet.UserActivity;
 import comp5216.sydney.edu.au.haplanet.R;
 import comp5216.sydney.edu.au.haplanet.adapter.ListviewEventAdapter;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
-import comp5216.sydney.edu.au.haplanet.model.ProfileModel;
+import comp5216.sydney.edu.au.haplanet.model.UserModel;
 
 public class UserFragment extends Fragment {
 
     ArrayList<EventModel> eventModelArrayList;
-    ProfileModel profileModel;
+    UserModel userModel;
     FirebaseFirestore db;
 
     ListView mListView;
     ImageView imageProfile, imageEdit;
     TextView txtUsername, txtIntroduction;
+    Button btnLogout, btnReset;
     private TabLayout tabLayout;
 
     private Context mContext;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +90,9 @@ public class UserFragment extends Fragment {
         imageEdit = getActivity().findViewById(R.id.iv_edit_profile);
         txtUsername = getActivity().findViewById(R.id.txt_username);
         txtIntroduction = getActivity().findViewById(R.id.txt_intruduction);
+
+        btnLogout = getActivity().findViewById(R.id.btn_logout);
+        btnReset = getActivity().findViewById(R.id.btn_resetPassword);
 
         tabLayout = (TabLayout) getActivity().findViewById(R.id.userTabLayout);
 
@@ -123,25 +135,28 @@ public class UserFragment extends Fragment {
                     }
                 });
 
-        db.collection("profiles").get()
+        db.collection("users").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if (!queryDocumentSnapshots.isEmpty()) {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for (DocumentSnapshot d : list) {
-                                ProfileModel newProfileModel = d.toObject(ProfileModel.class);
+                                UserModel newProfileModel = d.toObject(UserModel.class);
 
                                 if (Objects.equals(newProfileModel.getUid(), uid)) {
-                                    profileModel = newProfileModel;
+                                    userModel = newProfileModel;
                                 }
                             }
 
-                            if (profileModel != null) {
+                            if (userModel != null) {
+
+                                txtUsername.setText("Username: "+userModel.getUsername());
+                                txtIntroduction.setText("Introduction: "+userModel.getIntroduction());
 
                                 FirebaseStorage storage = FirebaseStorage.getInstance();
                                 StorageReference storageRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com")
-                                        .child("profiles").child(profileModel.getPicture());
+                                        .child("users").child(userModel.getAvatarUrl());
 
                                 try {
                                     File localFile = File.createTempFile("images", ".jpg");
@@ -166,8 +181,6 @@ public class UserFragment extends Fragment {
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                                txtUsername.setText(profileModel.getUsername());
-                                txtIntroduction.setText(profileModel.getIntroduction());
                             }
 
                         } else {
@@ -225,7 +238,7 @@ public class UserFragment extends Fragment {
 
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                Intent intent = new Intent(getActivity(), UserActivity.class);
                 intent.putExtra("uid", uid);
 
                 mContext.startActivity(intent);
@@ -235,5 +248,53 @@ public class UserFragment extends Fragment {
             }
         });
 
+        btnLogout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                setBtnLogout();
+            }
+        });
+
+        btnReset.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                resetPassword();
+            }
+        });
+
     }
+
+    public void setBtnLogout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("cancel this activity")
+                .setMessage("Are you sure to cancel this edit?")
+                .setPositiveButton("Yes", (dialogInterface, i) -> logout())
+                .setNegativeButton("No", (dialogInterface, i) -> {
+
+                });
+        builder.create().show();
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+    }
+
+    private void resetPassword() {
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.e(TAG, "Email sent.");
+                        }
+                    }
+                });
+
+    }
+
 }

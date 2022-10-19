@@ -61,7 +61,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".AddInActivity" />
         <activity android:name=".MessageActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".UserActivity" />
+        <activity android:name=".ResetActivity" />
     </application>
 
 </manifest>
