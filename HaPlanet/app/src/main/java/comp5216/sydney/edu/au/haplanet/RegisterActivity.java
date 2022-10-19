@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_PHOTOS = 102;
     private String filePath;
 
-    EditText et_username,et_email, et_password;
+    EditText et_username, et_email, et_password;
     Button btn_register;
     TextView tv_login;
     ImageView iv_add_avatar;
@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        tv_login.setOnClickListener(new View.OnClickListener(){
+        tv_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
@@ -159,39 +159,46 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void signup() {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(et_email.getText().toString(),et_password.getText()
-                .toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+        String email = et_email.getText().toString();
+        String username = et_username.getText().toString();
+        String password = et_password.getText().toString();
 
-                String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
-                File file = new File(filePath);
+        if (email.isEmpty() || username.isEmpty() || filePath == null || password.isEmpty()) {
+            Toast.makeText(RegisterActivity.this, "Please fill in all blanks", Toast.LENGTH_SHORT).show();
+        } else {
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(et_email.getText().toString(), et_password.getText()
+                    .toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if(task.isSuccessful()) {
-                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("users").child(fileName);
-                    storageReference.putFile(Uri.fromFile(file)).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+                    File file = new File(filePath);
 
-                            if(task.isSuccessful()) {
+                    if (task.isSuccessful()) {
+                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("users").child(fileName);
+                        storageReference.putFile(Uri.fromFile(file)).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 
-                                CollectionReference users = FirebaseFirestore.getInstance().collection("users");
-                                UserModel newUserModel = new UserModel(uid, et_email.getText().toString(), fileName, et_username.getText().toString(), "");
-                                users.add(newUserModel);
+                                if (task.isSuccessful()) {
+
+                                    CollectionReference users = FirebaseFirestore.getInstance().collection("users");
+                                    UserModel newUserModel = new UserModel(uid, email, fileName, username, "");
+                                    users.add(newUserModel);
+
+                                }
 
                             }
+                        });
+                        Toast.makeText(RegisterActivity.this, "Upload Firebase Success", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    }
 
-                        }
-                    });
-                    Toast.makeText(RegisterActivity.this, "Upload Firebase Success", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                } else {
-                    Toast.makeText(RegisterActivity.this, "error", Toast.LENGTH_SHORT).show();
                 }
-
-            }
-        });
+            });
+        }
     }
-
 }
