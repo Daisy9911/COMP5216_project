@@ -54,7 +54,7 @@
         <entry key="app/src/main/res/layout/activity_message.xml" value="0.11018237082066869" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3388566872269187" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.1793478260869565" />
-        <entry key="app/src/main/res/layout/fragment_find.xml" value="0.12858428955078127" />
+        <entry key="app/src/main/res/layout/fragment_find.xml" value="0.21873474121093753" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.23419342041015626" />
         <entry key="app/src/main/res/layout/fragment_message.xml" value="0.22752990722656252" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.3154815673828125" />
@@ -65,7 +65,7 @@
         <entry key="app/src/main/res/layout/radius.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.12337511984410618" />
         <entry key="app/src/main/res/menu/nav_items.xml" value="0.21688514992042823" />
-        <entry key="app/src/main/res/menu/search.xml" value="0.3972028379087095" />
+        <entry key="app/src/main/res/menu/search.xml" value="0.2828656797055845" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1195" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1195" />
       </map>
