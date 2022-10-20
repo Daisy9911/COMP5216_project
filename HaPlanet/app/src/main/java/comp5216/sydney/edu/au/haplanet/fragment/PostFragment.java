@@ -104,23 +104,20 @@ public class PostFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void showDatePickerDialog() {
-//        Calendar c = Calendar.getInstance();
-//        DatePickerDialog mDatePickerDialog = new DatePickerDialog(getActivity(), R.style.DialogTheme, (view, year, monthOfYear, dayOfMonth) -> {
-//            if ((monthOfYear + 1) < 10 && dayOfMonth < 10) {
-//                startDateText.setText(year + "-0" + (monthOfYear + 1) + "-0" + dayOfMonth);
-//            } else if ((monthOfYear + 1) < 10) {
-//                startDateText.setText(year + "-0" + (monthOfYear + 1) + "-" + dayOfMonth);
-//            } else if (dayOfMonth < 10) {
-//                startDateText.setText(year + "-" + (monthOfYear + 1) + "-0" + dayOfMonth);
-//            } else {
-//                startDateText.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-//            }
-//
-//        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-//        mDatePickerDialog.show();
+        Calendar c = Calendar.getInstance();
+        DatePickerDialog mDatePickerDialog = new DatePickerDialog(getActivity(), R.style.DialogTheme, (view, year, monthOfYear, dayOfMonth) -> {
+            if ((monthOfYear + 1) < 10 && dayOfMonth < 10) {
+                startDateText.setText(year + "-0" + (monthOfYear + 1) + "-0" + dayOfMonth);
+            } else if ((monthOfYear + 1) < 10) {
+                startDateText.setText(year + "-0" + (monthOfYear + 1) + "-" + dayOfMonth);
+            } else if (dayOfMonth < 10) {
+                startDateText.setText(year + "-" + (monthOfYear + 1) + "-0" + dayOfMonth);
+            } else {
+                startDateText.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+            }
 
-
-
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+        mDatePickerDialog.show();
     }
 
     @SuppressLint("SetTextI18n")
