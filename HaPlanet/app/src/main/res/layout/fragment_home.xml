@@ -5,40 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment"
-    android:orientation="vertical"
-    android:background="#FAFAFB">
+    android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tayLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="#F3ABAB"
-        app:tabSelectedTextColor="#F3ABAB"
-        app:tabTextColor="#D0CFCDCD" />
+        app:tabIndicatorColor="#673AB7"
+        app:tabSelectedTextColor="#673AB7"
+        app:tabTextColor="@android:color/darker_gray"/>
 
     <!--Grid View for displaying our data from Firebase-->
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="14dp" />
-
     <ListView
         android:id="@+id/idLVEvents"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:cacheColorHint="@color/white"
-        android:divider="#FAFAFB"
-        android:dividerHeight="20dp"
-        android:numColumns="2"
-        android:layout_marginLeft="18dp"
-        android:layout_marginRight="18dp" />
-
-    <TextView
-        android:id="@+id/txt_information"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="No more activity" />
+        android:layout_height="match_parent"
+        android:numColumns="2" />
 
 </LinearLayout>

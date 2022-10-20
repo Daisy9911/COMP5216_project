@@ -65,9 +65,7 @@
             android:id="@+id/btn_login"
             style="@style/SuperButton.Primary.Login"
             android:layout_marginTop="50dp"
-            android:text="Log in"
-            app:sSelectorNormalColor="#F3ABAB"
-            app:sSelectorPressedColor="#F3ABAB" />
+            android:text="Log in" />
 
 
 
@@ -97,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/title_signup"
-                android:textColor="#F3ABAB" />
+                android:textColor="@color/purple_200" />
 
         </LinearLayout>
 

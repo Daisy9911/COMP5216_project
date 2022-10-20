@@ -85,7 +85,6 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_margin="10dp"
-                android:scaleType="centerCrop"
                 android:background="@drawable/ic_add_image" />
 
             <TextView
@@ -101,9 +100,7 @@
             android:id="@+id/btn_register"
             style="@style/SuperButton.Primary.Register"
             android:layout_marginTop="30dp"
-            android:text="Sign up"
-            app:sSelectorNormalColor="#F3ABAB"
-            app:sSelectorPressedColor="#F8D7D7" />
+            android:text="Sign up" />
 
     </LinearLayout>
 
@@ -131,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/title_login"
-                android:textColor="#F3ABAB" />
+                android:textColor="@color/purple_200" />
 
         </LinearLayout>
 
