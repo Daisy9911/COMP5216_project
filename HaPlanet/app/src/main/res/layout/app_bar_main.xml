@@ -29,6 +29,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="80dp"
-        app:srcCompat="@android:drawable/ic_menu_search" />
+        android:backgroundTint="@color/purple_500"
+        app:srcCompat="@android:drawable/ic_menu_search"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

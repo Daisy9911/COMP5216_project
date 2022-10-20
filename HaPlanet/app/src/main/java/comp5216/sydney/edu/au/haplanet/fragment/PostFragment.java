@@ -77,7 +77,6 @@ public class PostFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
         photopreview = (ImageView) getActivity().findViewById(R.id.iv_select_pic);
 
         titleText = (EditText) getActivity().findViewById(R.id.txt_title);
