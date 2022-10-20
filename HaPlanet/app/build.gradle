@@ -61,6 +61,8 @@ dependencies {
 
     implementation 'top.zibin:Luban:1.1.8'//luban压缩算法,https://github.com/Curzibn/Luban
 
+    implementation 'com.carson_ho:SearchLayout:1.0.1'
+
     //Picasso https://github.com/square/picasso 图片加载类
 //    implementation 'com.squareup.picasso:picasso:2.8'
 
