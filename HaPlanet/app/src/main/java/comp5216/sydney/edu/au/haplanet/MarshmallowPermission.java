@@ -58,7 +58,8 @@ public class MarshmallowPermission {
 
     public void requestPermissionForRecord(){
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.RECORD_AUDIO)){
-            Toast.makeText(activity, "Microphone permission needed for recording. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Microphone permission needed for recording. Please allow in App Settings for additional functionality.",
+                    Toast.LENGTH_LONG).show();
         } else {
             ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.RECORD_AUDIO},RECORD_PERMISSION_REQUEST_CODE);
         }
@@ -66,27 +67,33 @@ public class MarshmallowPermission {
 
     public void requestPermissionForExternalStorage(){
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-            Toast.makeText(activity, "External Storage permission needed. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "External Storage permission needed. Please allow in App Settings for additional functionality.",
+                    Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE);
             System.out.print("get storage permission");
         }
     }
 
     public void requestPermissionForCamera(){
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.CAMERA)){
-            Toast.makeText(activity, "Camera permission needed. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Camera permission needed. Please allow in App Settings for additional functionality.",
+                    Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},CAMERA_PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    CAMERA_PERMISSION_REQUEST_CODE);
             System.out.print("get camera permission");
         }
     }
 
     public void requestPermissionForReadfiles(){
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_EXTERNAL_STORAGE)){
-            Toast.makeText(activity, "Read files permission needed. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Read files permission needed. Please allow in App Settings for additional functionality.",
+                    Toast.LENGTH_LONG).show();
         } else {
-            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},READFILES_PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    READFILES_PERMISSION_REQUEST_CODE);
         }
     }
 

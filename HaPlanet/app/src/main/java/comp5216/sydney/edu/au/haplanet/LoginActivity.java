@@ -1,10 +1,7 @@
 package comp5216.sydney.edu.au.haplanet;
 
-import static com.xuexiang.xui.XUI.getContext;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.xuexiang.xui.XUI;
-import com.xuexiang.xui.utils.StatusBarUtils;
-import com.xuexiang.xui.widget.dialog.materialdialog.MaterialDialog;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -72,7 +67,9 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             } else {
-                                Toast.makeText(LoginActivity.this, "The email address or password is incorrect. Please retry...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,
+                                        "The email address or password is incorrect. Please retry...",
+                                        Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

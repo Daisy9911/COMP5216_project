@@ -20,8 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,7 +91,8 @@ public class UserActivity extends AppCompatActivity {
 
                                     try {
                                         File localFile = File.createTempFile("images", "jpg");
-                                        storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                        storageRef.getFile(localFile).
+                                                addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                             @Override
                                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                                 Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
@@ -116,13 +115,15 @@ public class UserActivity extends AppCompatActivity {
 
                             }
                         } else {
-                            Toast.makeText(UserActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserActivity.this,
+                                    "No data found in Database", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UserActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserActivity.this,
+                                "Fail to load data...", Toast.LENGTH_SHORT).show();
                     }
                 });
         ivImage.setOnClickListener(v -> takePhoto());
@@ -146,7 +147,8 @@ public class UserActivity extends AppCompatActivity {
     @SuppressLint("Range")
     private String uriToPath(Context context, Uri uri, int type) {
         String path = null;
-        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        Cursor cursor = context.getContentResolver().query(uri,
+                null, null, null, null);
         if (cursor == null) {
             return null;
         }
@@ -237,23 +239,28 @@ public class UserActivity extends AppCompatActivity {
 
                                         if (Objects.equals(updateUserModel.getUid(), uid)) {
                                             FirebaseFirestore
-                                                    .getInstance().collection("users").document(id).update("avatarUrl", fileName);
+                                                    .getInstance().collection("users").
+                                                    document(id).update("avatarUrl", fileName);
                                             FirebaseFirestore
-                                                    .getInstance().collection("users").document(id).update("username", username);
+                                                    .getInstance().collection("users").
+                                                    document(id).update("username", username);
                                             if(!introduction.isEmpty()) {
                                                 FirebaseFirestore
-                                                        .getInstance().collection("users").document(id).update("introduction", introduction);
+                                                        .getInstance().collection("users").
+                                                        document(id).update("introduction", introduction);
                                             }
                                         }
                                     }
                                 } else {
-                                    Toast.makeText(UserActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UserActivity.this,
+                                            "No data found in Database", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(UserActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserActivity.this,
+                                        "Fail to load data...", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -277,20 +284,24 @@ public class UserActivity extends AppCompatActivity {
 
                                     if (Objects.equals(updateUserModel.getUid(), uid)) {
                                         FirebaseFirestore
-                                                .getInstance().collection("users").document(id).update("username", username);
+                                                .getInstance().collection("users").
+                                                document(id).update("username", username);
                                         FirebaseFirestore
-                                                .getInstance().collection("users").document(id).update("introduction", introduction);
+                                                .getInstance().collection("users").
+                                                document(id).update("introduction", introduction);
                                     }
                                 }
 
                             } else {
-                                Toast.makeText(UserActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserActivity.this,
+                                        "No data found in Database", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(UserActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserActivity.this,
+                                    "Fail to load data...", Toast.LENGTH_SHORT).show();
                         }
                     });
         }

@@ -24,7 +24,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -185,7 +184,8 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (!isEmail(email)) {
             Toast.makeText(RegisterActivity.this, "Please input a real email", Toast.LENGTH_SHORT).show();
         } else if (!isPassword(password)) {
-            Toast.makeText(RegisterActivity.this, "Password must have 8-15 characters, including 1 uppercase letter and 1 number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this,
+                    "Password must have 8-15 characters, including 1 uppercase letter and 1 number", Toast.LENGTH_SHORT).show();
         } else {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(et_email.getText().toString(), et_password.getText()
                     .toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -197,7 +197,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                     if (task.isSuccessful()) {
                         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("users").child(fileName);
+                        StorageReference storageReference = FirebaseStorage.getInstance().
+                                getReference().child("users").child(fileName);
                         storageReference.putFile(Uri.fromFile(file)).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -212,7 +213,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                             }
                         });
-                        Toast.makeText(RegisterActivity.this, "Upload Firebase Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Upload Firebase Success",
+                                Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     } else {
                         Toast.makeText(RegisterActivity.this, "error", Toast.LENGTH_SHORT).show();

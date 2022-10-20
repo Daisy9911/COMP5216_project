@@ -1,7 +1,6 @@
 package comp5216.sydney.edu.au.haplanet;
 
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.ListView;
 
 import androidx.appcompat.widget.SearchView;
@@ -11,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

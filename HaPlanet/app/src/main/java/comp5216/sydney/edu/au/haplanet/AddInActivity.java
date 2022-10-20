@@ -66,7 +66,8 @@ public class AddInActivity extends AppCompatActivity {
         btnJoin = findViewById(R.id.btn_join);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageEventRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com").child("files").child(eventModel.getPicture());
+        StorageReference storageEventRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com")
+                .child("files").child(eventModel.getPicture());
 
         try {
             File localEventFile = File.createTempFile("images", "jpg");
@@ -137,7 +138,8 @@ public class AddInActivity extends AppCompatActivity {
 
                                     if (Objects.equals(eventModel.getTitle(), title)) {
                                         FirebaseFirestore
-                                                .getInstance().collection("files").document(id).update("uidList", uidList);
+                                                .getInstance().collection("files")
+                                                .document(id).update("uidList", uidList);
                                         Toast.makeText(AddInActivity.this, "Join in...", Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -173,11 +175,14 @@ public class AddInActivity extends AppCompatActivity {
                                 UserModel userModel = d.toObject(UserModel.class);
                                 if (Objects.equals(userModel.getUid(), ownerUid)) {
                                     String profileUrl = userModel.getAvatarUrl();
-                                    StorageReference storageAvatarRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com").child("users").child(profileUrl);
+                                    StorageReference storageAvatarRef = storage
+                                            .getReferenceFromUrl("gs://haplanet-83dba.appspot.com")
+                                            .child("users").child(profileUrl);
 
                                     try {
                                         File localAvatarFile = File.createTempFile("images", "jpg");
-                                        storageAvatarRef.getFile(localAvatarFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                        storageAvatarRef.getFile(localAvatarFile)
+                                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                             @Override
                                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                                 Glide.with(AddInActivity.this)

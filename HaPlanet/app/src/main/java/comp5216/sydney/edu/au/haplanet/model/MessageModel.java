@@ -1,8 +1,6 @@
 package comp5216.sydney.edu.au.haplanet.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 public class MessageModel {
 

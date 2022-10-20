@@ -1,10 +1,6 @@
 package comp5216.sydney.edu.au.haplanet.fragment;
 
-import static android.content.ContentValues.TAG;
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -17,18 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,7 +28,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.xuexiang.xui.XUI;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,10 +36,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import comp5216.sydney.edu.au.haplanet.LoginActivity;
-import comp5216.sydney.edu.au.haplanet.RegisterActivity;
-import comp5216.sydney.edu.au.haplanet.ResetActivity;
-import comp5216.sydney.edu.au.haplanet.UserActivity;
 import comp5216.sydney.edu.au.haplanet.R;
 import comp5216.sydney.edu.au.haplanet.adapter.ListviewEventAdapter;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
@@ -116,7 +102,8 @@ public class UserFragment extends Fragment {
                             for (EventModel eventModel : eventModelArrayList) {
                                 newEventModelArrayList.add(eventModel.clone());
                             }
-                            newEventModelArrayList = (ArrayList<EventModel>) newEventModelArrayList.stream().filter(e -> e.getUidList().get(0).equals(uid)).collect(Collectors.toList());
+                            newEventModelArrayList = (ArrayList<EventModel>) newEventModelArrayList.stream()
+                                    .filter(e -> e.getUidList().get(0).equals(uid)).collect(Collectors.toList());
                             Log.e("Count", "2");
                             ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), newEventModelArrayList);
                             mListView.setAdapter(adapter);
@@ -158,7 +145,8 @@ public class UserFragment extends Fragment {
 
                                 try {
                                     File localFile = File.createTempFile("images", ".jpg");
-                                    storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    storageRef.getFile(localFile)
+                                            .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                         @Override
                                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
@@ -204,13 +192,15 @@ public class UserFragment extends Fragment {
                     newEventModelArrayList.add(eventModel.clone());
                 }
                 if (tab.getText() == "My Post") {
-                    newEventModelArrayList = (ArrayList<EventModel>) newEventModelArrayList.stream().filter(e -> e.getUidList().get(0).equals(uid)).collect(Collectors.toList());
+                    newEventModelArrayList = (ArrayList<EventModel>) newEventModelArrayList.stream()
+                            .filter(e -> e.getUidList().get(0).equals(uid)).collect(Collectors.toList());
 //                    newEventModelArrayList.removeIf(e -> e.getUidList().contains(uid));
                     Log.e("Count", "2");
                     ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), newEventModelArrayList);
                     mListView.setAdapter(adapter);
                 } else {
-                    newEventModelArrayList = (ArrayList<EventModel>) newEventModelArrayList.stream().filter(e -> e.getUidList().contains(uid)).collect(Collectors.toList());
+                    newEventModelArrayList = (ArrayList<EventModel>) newEventModelArrayList.stream()
+                            .filter(e -> e.getUidList().contains(uid)).collect(Collectors.toList());
                     Log.e("Count", "2");
                     ListviewEventAdapter adapter = new ListviewEventAdapter(getActivity(), newEventModelArrayList);
                     mListView.setAdapter(adapter);

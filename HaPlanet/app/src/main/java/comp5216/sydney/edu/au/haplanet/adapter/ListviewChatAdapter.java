@@ -1,7 +1,6 @@
 package comp5216.sydney.edu.au.haplanet.adapter;
 
 import static android.content.ContentValues.TAG;
-import static android.provider.Settings.System.DATE_FORMAT;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,11 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-//import com.xuexiang.xui.adapter.simple.ViewHolder;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

@@ -46,8 +46,6 @@ import comp5216.sydney.edu.au.haplanet.MainActivity;
 import comp5216.sydney.edu.au.haplanet.MarshmallowPermission;
 import comp5216.sydney.edu.au.haplanet.R;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 public class PostFragment extends Fragment {
 
@@ -104,7 +102,8 @@ public class PostFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void showDatePickerDialog() {
         Calendar c = Calendar.getInstance();
-        DatePickerDialog mDatePickerDialog = new DatePickerDialog(getActivity(), R.style.DialogTheme, (view, year, monthOfYear, dayOfMonth) -> {
+        DatePickerDialog mDatePickerDialog = new DatePickerDialog(getActivity(),
+                R.style.DialogTheme, (view, year, monthOfYear, dayOfMonth) -> {
             if ((monthOfYear + 1) < 10 && dayOfMonth < 10) {
                 startDateText.setText(year + "-0" + (monthOfYear + 1) + "-0" + dayOfMonth);
             } else if ((monthOfYear + 1) < 10) {
