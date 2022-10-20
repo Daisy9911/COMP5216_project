@@ -35,6 +35,8 @@ import com.xuexiang.xui.XUI;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import comp5216.sydney.edu.au.haplanet.model.UserModel;
 
@@ -158,6 +160,21 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    public static boolean isEmail(String email) {
+        String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+        Pattern p = Pattern.compile(str);
+        Matcher m = p.matcher(email);
+        return m.matches();
+    }
+
+    public boolean isPassword(String password) {
+        String regex = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9 _]{8,15}$/";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(password);
+        boolean isMatch = m.matches();
+        return isMatch;
+    }
+
     private void signup() {
         String email = et_email.getText().toString();
         String username = et_username.getText().toString();
@@ -165,6 +182,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (email.isEmpty() || username.isEmpty() || filePath == null || password.isEmpty()) {
             Toast.makeText(RegisterActivity.this, "Please fill in all blanks", Toast.LENGTH_SHORT).show();
+        } else if (!isEmail(email)) {
+            Toast.makeText(RegisterActivity.this, "Please input a real email", Toast.LENGTH_SHORT).show();
+        } else if (!isPassword(password)) {
+            Toast.makeText(RegisterActivity.this, "Password must have 8-15 characters, including 1 uppercase letter and 1 number", Toast.LENGTH_SHORT).show();
         } else {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(et_email.getText().toString(), et_password.getText()
                     .toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
