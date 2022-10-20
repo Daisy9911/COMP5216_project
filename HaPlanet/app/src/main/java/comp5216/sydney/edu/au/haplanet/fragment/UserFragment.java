@@ -266,8 +266,8 @@ public class UserFragment extends Fragment {
 
     public void setBtnLogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("cancel this activity")
-                .setMessage("Are you sure to cancel this edit?")
+        builder.setTitle("Logout")
+                .setMessage("You will log out and return to the landing page.")
                 .setPositiveButton("Yes", (dialogInterface, i) -> logout())
                 .setNegativeButton("No", (dialogInterface, i) -> {
 
@@ -282,8 +282,8 @@ public class UserFragment extends Fragment {
 
     public void setBtnReset() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("cancel this activity")
-                .setMessage("Are you sure to cancel this edit?")
+        builder.setTitle("Reset Password")
+                .setMessage("You will receive an email with instructions to change your password.")
                 .setPositiveButton("Yes", (dialogInterface, i) -> resetPassword())
                 .setNegativeButton("No", (dialogInterface, i) -> {
 
