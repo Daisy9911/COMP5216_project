@@ -62,7 +62,6 @@ public class UserFragment extends Fragment {
     ListView mListView;
     ImageView imageProfile, imageEdit;
     TextView txtUsername, txtIntroduction;
-    Button btnLogout, btnReset;
     private TabLayout tabLayout;
 
     private Context mContext;
@@ -90,9 +89,6 @@ public class UserFragment extends Fragment {
         imageEdit = getActivity().findViewById(R.id.iv_edit_profile);
         txtUsername = getActivity().findViewById(R.id.txt_username);
         txtIntroduction = getActivity().findViewById(R.id.txt_intruduction);
-
-        btnLogout = getActivity().findViewById(R.id.btn_logout);
-        btnReset = getActivity().findViewById(R.id.btn_resetPassword);
 
         tabLayout = (TabLayout) getActivity().findViewById(R.id.userTabLayout);
 
@@ -151,8 +147,8 @@ public class UserFragment extends Fragment {
 
                             if (userModel != null) {
 
-                                txtUsername.setText("Username: "+userModel.getUsername());
-                                txtIntroduction.setText("Introduction: "+userModel.getIntroduction());
+                                txtUsername.setText(userModel.getUsername());
+                                txtIntroduction.setText(userModel.getIntroduction());
 
                                 FirebaseStorage storage = FirebaseStorage.getInstance();
                                 StorageReference storageRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com")
@@ -248,64 +244,50 @@ public class UserFragment extends Fragment {
             }
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                setBtnLogout();
-            }
-        });
-
-        btnReset.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                setBtnReset();
-            }
-        });
-
     }
 
-    public void setBtnLogout() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("cancel this activity")
-                .setMessage("Are you sure to cancel this edit?")
-                .setPositiveButton("Yes", (dialogInterface, i) -> logout())
-                .setNegativeButton("No", (dialogInterface, i) -> {
+//    public void setBtnLogout() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setTitle("cancel this activity")
+//                .setMessage("Are you sure to cancel this edit?")
+//                .setPositiveButton("Yes", (dialogInterface, i) -> logout())
+//                .setNegativeButton("No", (dialogInterface, i) -> {
+//
+//                });
+//        builder.create().show();
+//    }
 
-                });
-        builder.create().show();
-    }
+//    private void logout() {
+//        FirebaseAuth.getInstance().signOut();
+//        startActivity(new Intent(getActivity(), LoginActivity.class));
+//    }
 
-    private void logout() {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getActivity(), LoginActivity.class));
-    }
+//    public void setBtnReset() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setTitle("cancel this activity")
+//                .setMessage("Are you sure to cancel this edit?")
+//                .setPositiveButton("Yes", (dialogInterface, i) -> resetPassword())
+//                .setNegativeButton("No", (dialogInterface, i) -> {
+//
+//                });
+//        builder.create().show();
+//    }
 
-    public void setBtnReset() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("cancel this activity")
-                .setMessage("Are you sure to cancel this edit?")
-                .setPositiveButton("Yes", (dialogInterface, i) -> resetPassword())
-                .setNegativeButton("No", (dialogInterface, i) -> {
-
-                });
-        builder.create().show();
-    }
-
-    private void resetPassword() {
-
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-        auth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.e(TAG, "Email sent.");
-                        }
-                    }
-                });
-
-    }
+//    private void resetPassword() {
+//
+//        FirebaseAuth auth = FirebaseAuth.getInstance();
+//        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+//
+//        auth.sendPasswordResetEmail(email)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+//                            Log.e(TAG, "Email sent.");
+//                        }
+//                    }
+//                });
+//
+//    }
 
 }

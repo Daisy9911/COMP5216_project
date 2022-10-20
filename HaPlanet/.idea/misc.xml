@@ -27,6 +27,62 @@
         <entry key="..\:/mywork/COMP5216_project/HaPlanet/app/src/main/res/layout/fragment_user.xml" value="0.35520833333333335" />
         <entry key="..\:/mywork/COMP5216_project/HaPlanet/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3541666666666667" />
         <entry key="..\:/mywork/COMP5216_project/HaPlanet/app/src/main/res/menu/nav_items.xml" value="0.3333333333333333" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable-v24/ic_lock_focus.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable-v24/ic_phone_focus.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_user_focus.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/circle.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/custom_email_icon.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/custom_input.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/custom_intro_icon.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/custom_lock_icon.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/custom_phone_icon.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/custom_user_icon.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_add_image.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_add_people.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_email.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_find.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_lock.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_message.xml" value="0.1085" />
+        <entry key="app/src/main/res/drawable/ic_person.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_phone.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/ic_post.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_sendmessage.xml" value="0.1085" />
+        <entry key="app/src/main/res/drawable/ic_user.xml" value="0.1195" />
+        <entry key="app/src/main/res/drawable/profile_textview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/radius.xml" value="0.1085" />
+        <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/textview_backgroud.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_event.xml" value="0.23111590353551245" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.4607931385869566" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.26490936279296873" />
+        <entry key="app/src/main/res/layout/activity_message.xml" value="0.2333146950394187" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3388566872269187" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.1793478260869565" />
+        <entry key="app/src/main/res/layout/activity_reset.xml" value="0.15443840579710144" />
+        <entry key="app/src/main/res/layout/activity_user.xml" value="0.15443840579710144" />
+        <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1810796986455503" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.1480978260869565" />
+        <entry key="app/src/main/res/layout/fragment_find.xml" value="0.21873474121093753" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.23419342041015626" />
+        <entry key="app/src/main/res/layout/fragment_message.xml" value="0.22752990722656252" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.3154815673828125" />
+        <entry key="app/src/main/res/layout/fragment_user.xml" value="0.2715057373046875" />
+        <entry key="app/src/main/res/layout/lv_chat_item.xml" value="0.253103818574575" />
+        <entry key="app/src/main/res/layout/lv_event_item.xml" value="0.3285198555956679" />
+        <entry key="app/src/main/res/layout/lv_message_item.xml" value="0.15443840579710144" />
+        <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.1480978260869565" />
+        <entry key="app/src/main/res/layout/radius.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.12337511984410618" />
+        <entry key="app/src/main/res/layout/test.xml" value="0.2170627980992414" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.2265625" />
+        <entry key="app/src/main/res/menu/nav_items.xml" value="0.21688514992042823" />
+        <entry key="app/src/main/res/menu/search.xml" value="0.2828656797055845" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1195" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1195" />
       </map>
     </option>
   </component>
@@ -35,5 +91,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.20606884057971014" />
+      </ProjectState>
+    </option>
   </component>
 </project>
