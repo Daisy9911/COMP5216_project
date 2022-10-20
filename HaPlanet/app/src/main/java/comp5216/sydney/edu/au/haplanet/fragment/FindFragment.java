@@ -34,8 +34,6 @@ import comp5216.sydney.edu.au.haplanet.model.EventModel;
 
 public class FindFragment extends Fragment {
 
-
-    private String[] mStrs = {};
     private SearchView mSearchView;
     private ListView mListView;
     ArrayList<EventModel> eventModelArrayList;
