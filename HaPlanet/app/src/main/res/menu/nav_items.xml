@@ -8,11 +8,6 @@
         android:title="@string/home"
         app:showAsAction="always" />
 
-    <item android:id="@+id/nav_item_find"
-        android:icon="@drawable/ic_find"
-        android:title="@string/find"
-        app:showAsAction="always" />
-
     <item android:id="@+id/nav_item_post"
         android:icon="@drawable/ic_post"
         android:title="@string/post"

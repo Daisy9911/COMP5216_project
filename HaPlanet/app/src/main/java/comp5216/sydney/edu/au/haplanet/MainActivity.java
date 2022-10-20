@@ -305,10 +305,6 @@ public class MainActivity extends AppCompatActivity {
                     switchFragment(home_fragment);
                     Toast.makeText(MainActivity.this, R.string.home, Toast.LENGTH_SHORT).show();
                     break;
-                case R.id.nav_item_find:
-                    switchFragment(find_fragment);
-                    Toast.makeText(MainActivity.this, R.string.find, Toast.LENGTH_SHORT).show();
-                    break;
                 case R.id.nav_item_post:
                     switchFragment(post_fragment);
                     Toast.makeText(MainActivity.this,"Post", Toast.LENGTH_SHORT).show();
