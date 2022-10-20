@@ -1,5 +1,6 @@
 package comp5216.sydney.edu.au.haplanet.adapter;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -37,6 +38,7 @@ import com.xuexiang.xui.adapter.simple.ViewHolder;
 public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
 
     private Context mContext;
+    private static Context context;
 
     ImageView ivImage;
     TextView txtTitle, txtNumber, txtCategory, txtStartTime;
@@ -44,7 +46,7 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
     public ListviewEventAdapter(@NonNull Context context, ArrayList<EventModel> dataModalArrayList) {
         super(context, 0, dataModalArrayList);
         this.mContext = context;
-
+        ListviewEventAdapter.context = context.getApplicationContext();
     }
 
     @NonNull
@@ -90,11 +92,11 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-                    Glide.with(getContext())
-                            .load(localFile.getAbsolutePath())
-                            //transition(TransitionOptions transitionOptions)
-                            .transition(DrawableTransitionOptions.withCrossFade())
-                            .into(newViewHolder.mIvIcon);
+                        Glide.with(context)
+                                .load(localFile.getAbsolutePath())
+                                //transition(TransitionOptions transitionOptions)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .into(newViewHolder.mIvIcon);
 
 //                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
 //                    newViewHolder.mIvIcon.setImageBitmap(bitmap);

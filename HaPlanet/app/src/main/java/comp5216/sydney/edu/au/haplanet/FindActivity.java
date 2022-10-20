@@ -1,8 +1,11 @@
 package comp5216.sydney.edu.au.haplanet;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ListView;
-import android.widget.SearchView;
+
+import androidx.appcompat.widget.SearchView;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +36,10 @@ public class FindActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find);
+        //隐藏状态栏
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         mSearchView = (SearchView) findViewById(R.id.search_view);
 
