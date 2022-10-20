@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -44,6 +47,11 @@ import java.util.List;
 import java.util.Objects;
 
 import comp5216.sydney.edu.au.haplanet.databinding.ActivityMainBinding;
+import comp5216.sydney.edu.au.haplanet.fragment.FindFragment;
+import comp5216.sydney.edu.au.haplanet.fragment.HomeFragment;
+import comp5216.sydney.edu.au.haplanet.fragment.MessageFragment;
+import comp5216.sydney.edu.au.haplanet.fragment.PostFragment;
+import comp5216.sydney.edu.au.haplanet.fragment.UserFragment;
 import comp5216.sydney.edu.au.haplanet.model.UserModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
     TextView txt_username;
     TextView txt_introduction;
 
+    private BottomNavigationView nav_bottom_view;
+    private HomeFragment home_fragment;
+    private FindFragment find_fragment;
+    private MessageFragment message_fragment;
+    private UserFragment user_fragment;
+    private PostFragment post_fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,24 +84,32 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivity(new Intent(MainActivity.this, FindActivity.class));
-
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bottom_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_post, R.id.nav_message, R.id.nav_user)
+                R.id.nav_home, R.id.nav_post, R.id.nav_message, R.id.nav_user,
+                R.id.nav_item_home, R.id.nav_item_post, R.id.nav_item_message, R.id.nav_item_user)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        //设置BottomNavigation
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.nav_item_home, R.id.nav_item_post, R.id.nav_item_message, R.id.nav_item_user)
+//                .build();
 
         //设置navigation监听
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -108,6 +131,16 @@ public class MainActivity extends AppCompatActivity {
                 return handled;
             }
         });
+
+        //设置bottom_nav操作
+        home_fragment = new HomeFragment();
+        find_fragment = new FindFragment();
+        message_fragment = new MessageFragment();
+        user_fragment = new UserFragment();
+        post_fragment = new PostFragment();
+
+//        nav_bottom_view =  findViewById(R.id.nav_bottom_view);
+//        nav_bottom_view.setOnItemSelectedListener(mNavItemListener);
 
         //nav_header_main的操作
         View drawerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
@@ -260,6 +293,42 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private BottomNavigationView.OnItemSelectedListener mNavItemListener
+            = new BottomNavigationView.OnItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            switch (item.getItemId()) {
+                case R.id.nav_item_home:
+                    switchFragment(home_fragment);
+                    Toast.makeText(MainActivity.this, R.string.home, Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.nav_item_find:
+                    switchFragment(find_fragment);
+                    Toast.makeText(MainActivity.this, R.string.find, Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.nav_item_post:
+                    switchFragment(post_fragment);
+                    Toast.makeText(MainActivity.this,"Post", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.nav_item_message:
+                    switchFragment(message_fragment);
+                    Toast.makeText(MainActivity.this, R.string.message, Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.nav_item_user:
+                    switchFragment(user_fragment);
+                    Toast.makeText(MainActivity.this, R.string.profile, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            return true;
+        }
+    };
+
+    private void switchFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.nav_host_fragment_content_main, fragment).commitNow();
     }
 
 }

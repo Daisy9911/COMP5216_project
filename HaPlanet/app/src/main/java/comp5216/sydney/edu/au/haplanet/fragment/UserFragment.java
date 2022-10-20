@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -160,14 +162,14 @@ public class UserFragment extends Fragment {
                                         @Override
                                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-                                            Glide.with(getContext())
-                                                    .load(localFile.getAbsolutePath())
-                                                    //transition(TransitionOptions transitionOptions)
-                                                    .transition(DrawableTransitionOptions.withCrossFade())
-                                                    .into(imageProfile);
+//                                            Glide.with(getContext())
+//                                                    .load(localFile.getAbsolutePath())
+//                                                    //transition(TransitionOptions transitionOptions)
+//                                                    .transition(DrawableTransitionOptions.withCrossFade())
+//                                                    .into(imageProfile);
 
-//                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-//                                            imageProfile.setImageBitmap(bitmap);
+                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                            imageProfile.setImageBitmap(bitmap);
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
