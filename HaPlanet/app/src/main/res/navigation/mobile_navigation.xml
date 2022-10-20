@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="comp5216.sydney.edu.au.haplanet.fragment.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_post"
+        android:name="comp5216.sydney.edu.au.haplanet.fragment.PostFragment"
+        android:label="Post"
+        tools:layout="@layout/fragment_post" />
+
+    <fragment
+        android:id="@+id/nav_message"
+        android:name="comp5216.sydney.edu.au.haplanet.fragment.MessageFragment"
+        android:label="Message"
+        tools:layout="@layout/fragment_message" />
+
+    <fragment
+        android:id="@+id/nav_user"
+        android:name="comp5216.sydney.edu.au.haplanet.fragment.UserFragment"
+        android:label="User"
+        tools:layout="@layout/fragment_user" />
+</navigation>
