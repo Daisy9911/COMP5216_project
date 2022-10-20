@@ -20,7 +20,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="#f4f4f4"
-        android:src="@drawable/ic_add_image"
+        android:src="@drawable/ic_post_add_image"
         android:scaleType="fitXY"
         app:shapeAppearanceOverlay="@style/circleImageStyle"/>
 
