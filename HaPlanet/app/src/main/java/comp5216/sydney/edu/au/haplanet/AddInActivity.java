@@ -162,7 +162,7 @@ public class AddInActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        db.collection("profiles").get()
+        db.collection("users").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -173,7 +173,7 @@ public class AddInActivity extends AppCompatActivity {
                                 UserModel userModel = d.toObject(UserModel.class);
                                 if (Objects.equals(userModel.getUid(), ownerUid)) {
                                     String profileUrl = userModel.getAvatarUrl();
-                                    StorageReference storageAvatarRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com").child("profiles").child(profileUrl);
+                                    StorageReference storageAvatarRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com").child("users").child(profileUrl);
 
                                     try {
                                         File localAvatarFile = File.createTempFile("images", "jpg");
