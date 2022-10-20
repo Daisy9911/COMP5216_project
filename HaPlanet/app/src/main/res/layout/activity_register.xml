@@ -85,6 +85,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="50dp"
                 android:layout_margin="10dp"
+                android:scaleType="centerCrop"
                 android:background="@drawable/ic_add_image" />
 
             <TextView
