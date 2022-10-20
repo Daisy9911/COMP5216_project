@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
     UserModel userModel;
     FirebaseFirestore db;
 
+    ImageView imageView;
+    TextView txt_username;
+    TextView txt_introduction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,74 +111,18 @@ public class MainActivity extends AppCompatActivity {
 
         //nav_header_main的操作
         View drawerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        ImageView imageView = drawerView.findViewById(R.id.imageView);
-        TextView txt_username = drawerView.findViewById(R.id.txt_username);
-        TextView txt_introduction = drawerView.findViewById(R.id.txt_intruduction);
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        imageView = drawerView.findViewById(R.id.imageView);
+        txt_username = drawerView.findViewById(R.id.txt_username);
+        txt_introduction = drawerView.findViewById(R.id.txt_intruduction);
 
-        db = FirebaseFirestore.getInstance();
+        loadData();
 
-        db.collection("users").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                            for (DocumentSnapshot d : list) {
-                                UserModel newProfileModel = d.toObject(UserModel.class);
-
-                                if (Objects.equals(newProfileModel.getUid(), uid)) {
-                                    userModel = newProfileModel;
-                                }
-                            }
-
-                            if (userModel != null) {
-
-                                txt_username.setText(userModel.getUsername());
-                                if (!Objects.equals(userModel.getIntroduction(), "")) {
-                                    txt_introduction.setText(userModel.getIntroduction());
-                                }
-
-                                FirebaseStorage storage = FirebaseStorage.getInstance();
-                                StorageReference storageRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com")
-                                        .child("users").child(userModel.getAvatarUrl());
-
-                                try {
-                                    File localFile = File.createTempFile("images", ".jpg");
-                                    storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                                            Glide.with(MainActivity.this)
-                                                    .load(localFile.getAbsolutePath())
-                                                    //transition(TransitionOptions transitionOptions)
-                                                    .transition(DrawableTransitionOptions.withCrossFade())
-                                                    .into(imageView);
-
-//                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-//                                            imageProfile.setImageBitmap(bitmap);
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception exception) {
-                                        }
-                                    });
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        } else {
-                            Toast.makeText(MainActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setBtnSetting();
+            }
+        });
 
     }
 
@@ -243,6 +191,75 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void loadData() {
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("users").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot d : list) {
+                                UserModel newProfileModel = d.toObject(UserModel.class);
+
+                                if (Objects.equals(newProfileModel.getUid(), uid)) {
+                                    userModel = newProfileModel;
+                                }
+                            }
+
+                            if (userModel != null) {
+
+                                txt_username.setText(userModel.getUsername());
+                                if (!Objects.equals(userModel.getIntroduction(), "")) {
+                                    txt_introduction.setText(userModel.getIntroduction());
+                                }
+
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                StorageReference storageRef = storage.getReferenceFromUrl("gs://haplanet-83dba.appspot.com")
+                                        .child("users").child(userModel.getAvatarUrl());
+
+                                try {
+                                    File localFile = File.createTempFile("images", ".jpg");
+                                    storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                                            Glide.with(MainActivity.this)
+                                                    .load(localFile.getAbsolutePath())
+                                                    //transition(TransitionOptions transitionOptions)
+                                                    .transition(DrawableTransitionOptions.withCrossFade())
+                                                    .into(imageView);
+
+//                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+//                                            imageProfile.setImageBitmap(bitmap);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                        }
+                                    });
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        } else {
+                            Toast.makeText(MainActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Fail to load data...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
 }

@@ -86,7 +86,7 @@ public class UserFragment extends Fragment {
         eventModelArrayList = new ArrayList<>();
         mListView = getActivity().findViewById(R.id.idLVUserEvents);
         imageProfile = getActivity().findViewById(R.id.iv_profile_image);
-        imageEdit = getActivity().findViewById(R.id.iv_edit_profile);
+//        imageEdit = getActivity().findViewById(R.id.iv_edit_profile);
         txtUsername = getActivity().findViewById(R.id.txt_username);
         txtIntroduction = getActivity().findViewById(R.id.txt_intruduction);
 
@@ -224,25 +224,25 @@ public class UserFragment extends Fragment {
             }
         });
 
-        imageEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mContext = getContext();
-
-//                imageEdit = getActivity().findViewById(R.id.iv_edit_profile);
-
-                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                Intent intent = new Intent(getActivity(), UserActivity.class);
-                intent.putExtra("uid", uid);
-
-                mContext.startActivity(intent);
-
-                Toast.makeText(getContext(), "Item clicked is : " + uid, Toast.LENGTH_SHORT).show();
-
-            }
-        });
+//        imageEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                mContext = getContext();
+//
+////                imageEdit = getActivity().findViewById(R.id.iv_edit_profile);
+//
+//                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//
+//                Intent intent = new Intent(getActivity(), UserActivity.class);
+//                intent.putExtra("uid", uid);
+//
+//                mContext.startActivity(intent);
+//
+//                Toast.makeText(getContext(), "Item clicked is : " + uid, Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
     }
 
