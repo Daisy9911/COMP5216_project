@@ -15,13 +15,22 @@
         android:text="Add a picture of the activity:"
         android:textColor="#807D7D" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_select_pic"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="#f4f4f4"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_add_image" />
+        android:src="@drawable/ic_post_add_image"
+        android:scaleType="fitXY"
+        app:shapeAppearanceOverlay="@style/circleImageStyle"/>
+
+<!--    <androidx.appcompat.widget.AppCompatImageView-->
+<!--        android:id="@+id/iv_select_pic"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:background="#f4f4f4"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/ic_add_image" />-->
 
     <EditText
         android:id="@+id/txt_title"
