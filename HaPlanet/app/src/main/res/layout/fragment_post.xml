@@ -12,123 +12,230 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Add a picture of the activity:"
-        android:textColor="#807D7D" />
+        android:text="Add a picture of the activity"
+        android:textColor="#807D7D"
+        android:textSize="18dp" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_select_pic"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginLeft="5dp"
         android:background="#f4f4f4"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_add"
-        app:shapeAppearanceOverlay="@style/circleImageStyle"/>
+        app:shapeAppearanceOverlay="@style/circleImageStyle" />
 
     <EditText
         android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
-        android:hint="Enter your title…"
-        android:textAlignment="viewStart" />
+        android:background="@null"
+        android:hint="Please enter a title for the activity"
+        android:textAlignment="viewStart"
+        android:textStyle="bold"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:layout_marginTop="10dp"
+        android:background="#335A5A5A"/>
 
     <EditText
         android:id="@+id/txt_content"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:gravity="top"
+        android:hint="Introduce the content of your activity…"
         android:inputType="textMultiLine"
         android:maxLines="5"
         android:scrollbars="vertical"
-        android:gravity="top"
-        android:hint="Introduce the content of your activity…" />
+        android:background="@drawable/order_edt_note_bg"
+        android:textSize="18dp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/txt_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Start date"/>
+            android:hint="Select date"
+            android:textSize="18dp"/>
 
-        <TextView
-            android:id="@+id/txt_start_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/txt_start_date"
-            android:hint="Start time" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentRight="true"
+                android:hint="Select time"
+                android:textSize="18dp"/>
+        </RelativeLayout>
+    </LinearLayout>
 
-    </RelativeLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:layout_marginTop="10dp"
+        android:background="#335A5A5A"/>
 
-    <!--    <com.loper7.date_time_picker.DateTimePicker-->
-    <!--        android:id="@+id/dateTimePicker"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout="@layout/dt_layout_date_picker_globalization"-->
-    <!--        />-->
-
-    <EditText
-        android:id="@+id/txt_location"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Location"
+            android:textSize="18dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/txt_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:hint="Select location"
+                android:background="@null"
+                android:drawableRight="@drawable/ic_arrow_right"
+                android:textSize="18dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
         android:layout_marginTop="10dp"
-        android:hint="Location:"
-        android:textAlignment="viewStart" />
+        android:background="#335A5A5A"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Category"
+            android:textSize="18dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/txt_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:hint="Select category"
+                android:background="@null"
+                android:drawableRight="@drawable/ic_arrow_right"
+                android:textSize="18dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:layout_marginTop="10dp"
+        android:background="#335A5A5A"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Number of people required"
+            android:textSize="18dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/txt_number_of_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:hint="(Minimum 2)"
+                android:textSize="18dp"/>
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/txt_number_of_people"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Number"
-            android:inputType="number"
-            android:maxLength="2"
-            android:textAlignment="viewStart" />
 
         <EditText
             android:id="@+id/txt_Price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/txt_number_of_people"
+            android:padding="5dp"
             android:layout_marginTop="10dp"
             android:hint="Price($)"
             android:inputType="number"
-            android:maxLength="5"/>
+            android:background="@drawable/order_edt_note_bg"
+            android:maxLength="5"
+            android:textSize="18dp"/>
 
-        <EditText
-            android:id="@+id/txt_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/txt_Price"
-            android:layout_marginTop="10dp"
-            android:hint="Time(minutes)"
-            android:inputType="number"
-            android:maxLength="3"/>
-
-        <EditText
-            android:id="@+id/txt_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/txt_time"
-            android:layout_marginTop="10dp"
-            android:hint="Category"
-            android:maxLength="10"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/txt_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:layout_alignParentRight="true"
+                android:hint="Time(minutes)"
+                android:inputType="number"
+                android:background="@drawable/order_edt_note_bg"
+                android:maxLength="3"
+                android:textSize="18dp" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <Button
-        android:layout_marginTop="20dp"
         android:id="@+id/btn_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:text="submit" />
 
 </LinearLayout>
