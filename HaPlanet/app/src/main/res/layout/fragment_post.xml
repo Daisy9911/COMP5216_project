@@ -47,13 +47,13 @@
     <EditText
         android:id="@+id/txt_content"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:gravity="top"
         android:hint="Introduce the content of your activity…"
         android:inputType="textMultiLine"
-        android:maxLines="5"
+        android:maxLines="2"
         android:scrollbars="vertical"
         android:background="@drawable/order_edt_note_bg"
         android:textSize="18dp" />
