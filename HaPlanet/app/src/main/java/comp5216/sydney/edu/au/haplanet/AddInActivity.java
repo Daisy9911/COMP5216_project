@@ -152,6 +152,8 @@ public class AddInActivity extends AppCompatActivity {
                         }
                     });
 
+        } else if (uidList.size() == Integer.parseInt(eventModel.getNumberOfPeople())) {
+            Toast.makeText(AddInActivity.this, "This activity is full...", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "You have join before", Toast.LENGTH_SHORT).show();
         }
@@ -183,32 +185,32 @@ public class AddInActivity extends AppCompatActivity {
                                         File localAvatarFile = File.createTempFile("images", "jpg");
                                         storageAvatarRef.getFile(localAvatarFile)
                                                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                                Glide.with(AddInActivity.this)
-                                                        .load(localAvatarFile.getAbsolutePath())
-                                                        //transition(TransitionOptions transitionOptions)
-                                                        .transition(DrawableTransitionOptions.withCrossFade())
-                                                        .into(ivAvaterImage);
+                                                    @Override
+                                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                        Glide.with(AddInActivity.this)
+                                                                .load(localAvatarFile.getAbsolutePath())
+                                                                //transition(TransitionOptions transitionOptions)
+                                                                .transition(DrawableTransitionOptions.withCrossFade())
+                                                                .into(ivAvaterImage);
 
-                                                if(userModel.getUsername() != null) {
-                                                    txtOwner.setText(userModel.getUsername() + " invites you to join...");
-                                                } else {
-                                                    txtOwner.setText(" invites you to join...");
-                                                }
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception exception) {
-                                            }
-                                        });
+                                                        if (userModel.getUsername() != null) {
+                                                            txtOwner.setText(userModel.getUsername() + " invites you to join...");
+                                                        } else {
+                                                            txtOwner.setText(" invites you to join...");
+                                                        }
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception exception) {
+                                                    }
+                                                });
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
 
                                 }
                             }
-                            if(flag == 1) {
+                            if (flag == 1) {
                                 txtOwner.setText("invites you to join...");
                             }
                         } else {
