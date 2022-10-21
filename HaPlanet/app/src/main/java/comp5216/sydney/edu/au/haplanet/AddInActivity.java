@@ -122,7 +122,7 @@ public class AddInActivity extends AppCompatActivity {
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         ArrayList<String> uidList = eventModel.getUidList();
-        if (!uidList.contains(uid)) {
+        if (!uidList.contains(uid) && uidList.size() < Integer.parseInt(eventModel.getNumberOfPeople())) {
             uidList.add(uid);
             db = FirebaseFirestore.getInstance();
 
@@ -152,7 +152,7 @@ public class AddInActivity extends AppCompatActivity {
                         }
                     });
 
-        } else if (uidList.size() == Integer.parseInt(eventModel.getNumberOfPeople())) {
+        } else if (uidList.size() >= Integer.parseInt(eventModel.getNumberOfPeople())) {
             Toast.makeText(AddInActivity.this, "This activity is full...", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "You have join before", Toast.LENGTH_SHORT).show();
