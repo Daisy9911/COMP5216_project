@@ -147,8 +147,8 @@ public class UserFragment extends Fragment {
                                     File localFile = File.createTempFile("images", ".jpg");
                                     storageRef.getFile(localFile)
                                             .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                @Override
+                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
 //                                            Glide.with(getContext())
 //                                                    .load(localFile.getAbsolutePath())
@@ -156,14 +156,14 @@ public class UserFragment extends Fragment {
 //                                                    .transition(DrawableTransitionOptions.withCrossFade())
 //                                                    .into(imageProfile);
 
-                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                                            imageProfile.setImageBitmap(bitmap);
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception exception) {
-                                        }
-                                    });
+                                                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                                    imageProfile.setImageBitmap(bitmap);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception exception) {
+                                                }
+                                            });
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -216,70 +216,5 @@ public class UserFragment extends Fragment {
             }
         });
 
-//        imageEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                mContext = getContext();
-//
-////                imageEdit = getActivity().findViewById(R.id.iv_edit_profile);
-//
-//                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//
-//                Intent intent = new Intent(getActivity(), UserActivity.class);
-//                intent.putExtra("uid", uid);
-//
-//                mContext.startActivity(intent);
-//
-//                Toast.makeText(getContext(), "Item clicked is : " + uid, Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-
     }
-
-//    public void setBtnLogout() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setTitle("cancel this activity")
-//                .setMessage("Are you sure to cancel this edit?")
-//                .setPositiveButton("Yes", (dialogInterface, i) -> logout())
-//                .setNegativeButton("No", (dialogInterface, i) -> {
-//
-//                });
-//        builder.create().show();
-//    }
-
-//    private void logout() {
-//        FirebaseAuth.getInstance().signOut();
-//        startActivity(new Intent(getActivity(), LoginActivity.class));
-//    }
-
-//    public void setBtnReset() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setTitle("cancel this activity")
-//                .setMessage("Are you sure to cancel this edit?")
-//                .setPositiveButton("Yes", (dialogInterface, i) -> resetPassword())
-//                .setNegativeButton("No", (dialogInterface, i) -> {
-//
-//                });
-//        builder.create().show();
-//    }
-
-//    private void resetPassword() {
-//
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-//
-//        auth.sendPasswordResetEmail(email)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if (task.isSuccessful()) {
-//                            Log.e(TAG, "Email sent.");
-//                        }
-//                    }
-//                });
-//
-//    }
-
 }

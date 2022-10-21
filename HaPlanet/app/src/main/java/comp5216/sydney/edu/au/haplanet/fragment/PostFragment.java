@@ -164,7 +164,8 @@ public class PostFragment extends Fragment {
         ArrayList<String> uidList = new ArrayList<>();
         uidList.add(uid);
 
-        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content) || startTime.equals(" ") || TextUtils.isEmpty(location) || TextUtils.isEmpty(numberOfPeople)
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content) || startTime.equals(" ") || TextUtils.isEmpty(location)
+                || TextUtils.isEmpty(numberOfPeople)
                 || TextUtils.isEmpty(price) || TextUtils.isEmpty(time) || TextUtils.isEmpty(category) || filePath == null) {
             Toast.makeText(getActivity(), "Please fill in all blanks", Toast.LENGTH_SHORT).show();
         } else {
@@ -184,7 +185,8 @@ public class PostFragment extends Fragment {
 //                                String newFilepath = task.toString();
                     CollectionReference files = FirebaseFirestore.getInstance().collection("files");
 
-                    EventModel newEventModel = new EventModel(fileName, title, content, startTime, location, numberOfPeople, price, time, category, uidList);
+                    EventModel newEventModel = new EventModel(fileName, title, content, startTime, location,
+                            numberOfPeople, price, time, category, uidList);
                     files.add(newEventModel);
 
                     Toast.makeText(getActivity(), "Upload Firebase Success", Toast.LENGTH_SHORT).show();

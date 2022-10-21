@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,14 +20,15 @@ import comp5216.sydney.edu.au.haplanet.AddInActivity;
 import comp5216.sydney.edu.au.haplanet.R;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.xuexiang.xui.adapter.simple.ViewHolder;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import comp5216.sydney.edu.au.haplanet.model.ViewHolder;
 
 public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
 
@@ -42,6 +42,8 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
         super(context, 0, dataModalArrayList);
         this.mContext = context;
         ListviewEventAdapter.context = context.getApplicationContext();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getContext()).build();
+        ImageLoader.getInstance().init(config);
     }
 
     @NonNull
@@ -49,20 +51,16 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder = null;
         View listitemView = convertView;
-        if(listitemView == null) {
+        if (listitemView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             listitemView = inflater.inflate(R.layout.lv_event_item, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.mIvIcon = listitemView.findViewById(R.id.iv_image);
+            viewHolder.ivImage = listitemView.findViewById(R.id.iv_image);
             listitemView.setTag(viewHolder);
+            viewHolder.ivImage.setTag(position);
         } else {
             viewHolder = (ViewHolder) listitemView.getTag();
         }
-
-//        View listitemView = convertView;
-//        if (listitemView == null) {
-//            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.lv_item, parent, false);
-//        }
 
         EventModel eventModel = getItem(position);
 
@@ -87,11 +85,14 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-                        Glide.with(context)
-                                .load(localFile.getAbsolutePath())
-                                //transition(TransitionOptions transitionOptions)
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .into(newViewHolder.mIvIcon);
+//                        Glide.with(context)
+//                                .load(localFile.getAbsolutePath())
+//                                //transition(TransitionOptions transitionOptions)
+//                                .transition(DrawableTransitionOptions.withCrossFade())
+//                                .into(newViewHolder.ivImage);
+                    if (newViewHolder.ivImage.getTag() != null && newViewHolder.ivImage.getTag().equals(position)) {
+                        ImageLoader.getInstance().displayImage("file://" + localFile.getAbsolutePath(), newViewHolder.ivImage);
+                    }
 
 //                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
 //                    newViewHolder.mIvIcon.setImageBitmap(bitmap);
@@ -124,7 +125,7 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
 
                 mContext.startActivity(intent);
 
-                Toast.makeText(getContext(), "Item clicked is : " + eventModel.getTitle(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Item clicked is : " + eventModel.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
         return listitemView;

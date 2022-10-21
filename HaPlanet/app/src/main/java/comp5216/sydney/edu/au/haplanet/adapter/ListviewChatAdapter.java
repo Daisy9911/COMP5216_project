@@ -4,8 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +40,7 @@ import comp5216.sydney.edu.au.haplanet.MessageActivity;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
 import comp5216.sydney.edu.au.haplanet.model.MessageModel;
 import comp5216.sydney.edu.au.haplanet.model.ViewHolder;
+
 
 public class ListviewChatAdapter extends ArrayAdapter<EventModel> {
 
@@ -56,7 +56,8 @@ public class ListviewChatAdapter extends ArrayAdapter<EventModel> {
     public ListviewChatAdapter(@NonNull Context context, ArrayList<EventModel> dataModalArrayList) {
         super(context, 0, dataModalArrayList);
         this.mContext = context;
-
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getContext()).build();
+        ImageLoader.getInstance().init(config);
     }
 
     @NonNull
@@ -72,6 +73,7 @@ public class ListviewChatAdapter extends ArrayAdapter<EventModel> {
             viewHolder.txtMessage = listitemView.findViewById(R.id.gv_txt_message);
             viewHolder.txtMessageTime = listitemView.findViewById(R.id.lv_txt_message_time);
             listitemView.setTag(viewHolder);
+            viewHolder.ivImage.setTag(position);
         } else {
             viewHolder = (ViewHolder) listitemView.getTag();
         }
@@ -103,8 +105,11 @@ public class ListviewChatAdapter extends ArrayAdapter<EventModel> {
             storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                    newViewHolder.ivImage.setImageBitmap(bitmap);
+//                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+//                    newViewHolder.ivImage.setImageBitmap(bitmap);
+                    if( newViewHolder.ivImage.getTag() != null && newViewHolder.ivImage.getTag().equals(position)){
+                        ImageLoader.getInstance().displayImage("file://"+localFile.getAbsolutePath(), newViewHolder.ivImage);
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -172,7 +177,7 @@ public class ListviewChatAdapter extends ArrayAdapter<EventModel> {
 
                 mContext.startActivity(intent);
 
-                Toast.makeText(getContext(), "Item clicked is : " + eventModel.getTitle(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Item clicked is : " + eventModel.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
 

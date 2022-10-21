@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         setBtnReset();
                     }
                 }
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_LONG).show();
 //                menuItem.setChecked(true);
                 drawer.closeDrawers();
                 return handled;
@@ -287,38 +287,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-
-    private BottomNavigationView.OnItemSelectedListener mNavItemListener
-            = new BottomNavigationView.OnItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-            switch (item.getItemId()) {
-                case R.id.nav_item_home:
-                    switchFragment(home_fragment);
-                    Toast.makeText(MainActivity.this, R.string.home, Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.nav_item_post:
-                    switchFragment(post_fragment);
-                    Toast.makeText(MainActivity.this,"Post", Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.nav_item_message:
-                    switchFragment(message_fragment);
-                    Toast.makeText(MainActivity.this, R.string.message, Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.nav_item_user:
-                    switchFragment(user_fragment);
-                    Toast.makeText(MainActivity.this, R.string.profile, Toast.LENGTH_SHORT).show();
-                    break;
-            }
-            return true;
-        }
-    };
-
-    private void switchFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment_content_main, fragment).commitNow();
     }
 
 }
