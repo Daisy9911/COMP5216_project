@@ -7,8 +7,8 @@
         <item name="android:layout_marginStart">50dp</item>
         <item name="android:layout_marginEnd">50dp</item>
         <item name="sCornersRadius">20dp</item>
-        <item name="sSelectorNormalColor">@color/purple_200</item>
-        <item name="sSelectorPressedColor">#CBA7F8</item>
+        <item name="sSelectorNormalColor">@color/purple_700</item>
+        <item name="sSelectorPressedColor">#DCA0A0</item>
         <item name="android:textColor">@color/xui_config_color_white</item>
         <item name="android:textSize">15sp</item>
     </style>
@@ -19,8 +19,8 @@
         <item name="android:layout_marginStart">50dp</item>
         <item name="android:layout_marginEnd">50dp</item>
         <item name="sCornersRadius">20dp</item>
-        <item name="sSelectorNormalColor">@color/purple_200</item>
-        <item name="sSelectorPressedColor">#CBA7F8</item>
+        <item name="sSelectorNormalColor">@color/purple_700</item>
+        <item name="sSelectorPressedColor">#DCA0A0</item>
         <item name="android:textColor">@color/xui_config_color_white</item>
         <item name="android:textSize">15sp</item>
     </style>
