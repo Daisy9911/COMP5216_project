@@ -17,15 +17,29 @@
         android:layout_height="156dp"
         android:orientation="horizontal">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_profile_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="30dp"
-            android:background="#f4f4f4"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_person"
-            app:shapeAppearanceOverlay="@style/circleImageStyle" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="30dp"
+                android:scaleType="fitXY"
+                app:indicatorColor="@color/purple_200"
+                app:indicatorName="PacmanIndicator" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_profile_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="30dp"
+                android:scaleType="fitXY"
+                app:shapeAppearanceOverlay="@style/circleImageStyle" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,16 +87,16 @@
             <!--                android:layout_height="wrap_content"-->
             <!--                android:text="Reset Password" />-->
 
-<!--            <ImageView-->
-<!--                android:id="@+id/iv_edit_profile"-->
-<!--                android:layout_width="20dp"-->
-<!--                android:layout_height="20dp"-->
-<!--                android:layout_gravity="right"-->
-<!--                android:layout_marginTop="50dp"-->
-<!--                android:layout_marginRight="50dp"-->
-<!--                android:onClick="editOnClick"-->
-<!--                android:scaleType="centerCrop"-->
-<!--                android:src="@drawable/ic_edit" />-->
+            <!--            <ImageView-->
+            <!--                android:id="@+id/iv_edit_profile"-->
+            <!--                android:layout_width="20dp"-->
+            <!--                android:layout_height="20dp"-->
+            <!--                android:layout_gravity="right"-->
+            <!--                android:layout_marginTop="50dp"-->
+            <!--                android:layout_marginRight="50dp"-->
+            <!--                android:onClick="editOnClick"-->
+            <!--                android:scaleType="centerCrop"-->
+            <!--                android:src="@drawable/ic_edit" />-->
         </LinearLayout>
 
     </LinearLayout>
@@ -115,8 +129,8 @@
         android:id="@+id/txt_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="No more information" />
 
 </LinearLayout>

@@ -4,21 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:background="@drawable/radius"
     android:gravity="center"
     android:orientation="horizontal"
-    android:padding="4dp"
-    android:background="@drawable/radius">
+    android:padding="4dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="4dp"
-        android:background="@color/white"
-        android:backgroundTint="@color/white"
-        android:padding="3dp"
-        android:scaleType="fitXY"
-        app:shapeAppearanceOverlay="@style/circleImageStyle"/>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="4dp"
+            android:padding="3dp"
+            android:scaleType="fitXY"
+            app:indicatorColor="@color/purple_200"
+            app:indicatorName="PacmanIndicator" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="4dp"
+            android:padding="3dp"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/circleImageStyle" />
+
+    </FrameLayout>
 
     <!--    <ImageView-->
     <!--        android:id="@+id/iv_image"-->
@@ -47,9 +62,9 @@
                 android:layout_margin="2dp"
                 android:padding="3dp"
                 android:text="Event Title"
-                android:textStyle="bold"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/gv_txt_number_of_people"

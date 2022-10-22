@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class ListviewChatAdapter extends ArrayAdapter<EventModel> {
 
     private Context mContext;
 
+    AVLoadingIndicatorView avi;
     ImageView ivImage;
     TextView txtTitle, txtNumber, txtMessageTime, txtMessage;
 
@@ -72,8 +74,10 @@ public class ListviewChatAdapter extends ArrayAdapter<EventModel> {
             viewHolder.ivImage = listitemView.findViewById(R.id.iv_image);
             viewHolder.txtMessage = listitemView.findViewById(R.id.gv_txt_message);
             viewHolder.txtMessageTime = listitemView.findViewById(R.id.lv_txt_message_time);
+            viewHolder.avi = listitemView.findViewById(R.id.avi);
             listitemView.setTag(viewHolder);
             viewHolder.ivImage.setTag(position);
+            viewHolder.avi.setTag(position);
         } else {
             viewHolder = (ViewHolder) listitemView.getTag();
         }
@@ -107,7 +111,7 @@ public class ListviewChatAdapter extends ArrayAdapter<EventModel> {
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 //                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
 //                    newViewHolder.ivImage.setImageBitmap(bitmap);
-                    if( newViewHolder.ivImage.getTag() != null && newViewHolder.ivImage.getTag().equals(position)){
+                    if(newViewHolder.ivImage.getTag() != null && newViewHolder.ivImage.getTag().equals(position)){
                         ImageLoader.getInstance().displayImage("file://"+localFile.getAbsolutePath(), newViewHolder.ivImage);
                     }
                 }

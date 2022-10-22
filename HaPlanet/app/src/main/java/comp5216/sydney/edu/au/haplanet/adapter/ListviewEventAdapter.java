@@ -27,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import comp5216.sydney.edu.au.haplanet.model.ViewHolder;
 
@@ -35,6 +36,7 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
     private Context mContext;
     private static Context context;
 
+    AVLoadingIndicatorView avi;
     ImageView ivImage;
     TextView txtTitle, txtNumber, txtCategory, txtStartTime;
 
@@ -56,13 +58,17 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
             listitemView = inflater.inflate(R.layout.lv_event_item, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.ivImage = listitemView.findViewById(R.id.iv_image);
+            viewHolder.avi = listitemView.findViewById(R.id.avi);
             listitemView.setTag(viewHolder);
             viewHolder.ivImage.setTag(position);
+            viewHolder.avi.setTag(position);
         } else {
             viewHolder = (ViewHolder) listitemView.getTag();
         }
 
         EventModel eventModel = getItem(position);
+
+        avi = listitemView.findViewById(R.id.avi);
 
         ivImage = listitemView.findViewById(R.id.iv_image);
         txtTitle = listitemView.findViewById(R.id.gv_txt_title);
@@ -91,9 +97,9 @@ public class ListviewEventAdapter extends ArrayAdapter<EventModel> {
 //                                .transition(DrawableTransitionOptions.withCrossFade())
 //                                .into(newViewHolder.ivImage);
                     if (newViewHolder.ivImage.getTag() != null && newViewHolder.ivImage.getTag().equals(position)) {
+//                        avi.hide();
                         ImageLoader.getInstance().displayImage("file://" + localFile.getAbsolutePath(), newViewHolder.ivImage);
                     }
-
 //                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
 //                    newViewHolder.mIvIcon.setImageBitmap(bitmap);
                 }
