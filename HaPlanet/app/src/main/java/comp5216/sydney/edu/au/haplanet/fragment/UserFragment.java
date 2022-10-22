@@ -28,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +48,7 @@ public class UserFragment extends Fragment {
     UserModel userModel;
     FirebaseFirestore db;
 
+    AVLoadingIndicatorView avi;
     ListView mListView;
     ImageView imageProfile, imageEdit;
     TextView txtUsername, txtIntroduction;
@@ -70,6 +72,8 @@ public class UserFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        avi = getActivity().findViewById(R.id.avi);
 
         eventModelArrayList = new ArrayList<>();
         mListView = getActivity().findViewById(R.id.idLVUserEvents);
@@ -158,6 +162,7 @@ public class UserFragment extends Fragment {
 
                                                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
                                                     imageProfile.setImageBitmap(bitmap);
+                                                    avi.hide();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override

@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,7 @@ import comp5216.sydney.edu.au.haplanet.model.UserModel;
 
 public class AddInActivity extends AppCompatActivity {
 
+    AVLoadingIndicatorView avi1, avi2;
     ImageView ivImage, ivAvaterImage;
     TextView txtTitle, txtTime, txtCategory, txtOwner, txtContent, txtStartTime, txtLocation, txtNumberOfPeople, txtPrice, txtRemainNumber, txtRemainNumberTitle;
     Button btnJoin;
@@ -47,6 +49,9 @@ public class AddInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
 
         eventModel = (EventModel) getIntent().getSerializableExtra("eventModel");
+
+        avi1 = findViewById(R.id.avi1);
+        avi2 = findViewById(R.id.avi2);
 
         ivImage = findViewById(R.id.iv_pic);
         ivAvaterImage = findViewById(R.id.iv_owner_pic);
@@ -82,6 +87,8 @@ public class AddInActivity extends AppCompatActivity {
                             //transition(TransitionOptions transitionOptions)
                             .transition(DrawableTransitionOptions.withCrossFade())
                             .into(ivImage);
+
+                    avi1.hide();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -192,6 +199,7 @@ public class AddInActivity extends AppCompatActivity {
                                                                 //transition(TransitionOptions transitionOptions)
                                                                 .transition(DrawableTransitionOptions.withCrossFade())
                                                                 .into(ivAvaterImage);
+                                                        avi2.hide();
 
                                                         if (userModel.getUsername() != null) {
                                                             txtOwner.setText(userModel.getUsername() + " invites you to join...");

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -19,13 +19,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_pic"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="5dp"
-            android:scaleType="fitXY"
-            app:shapeAppearanceOverlay="@style/circleImageStyle"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi1"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="5dp"
+                android:scaleType="fitXY"
+                app:indicatorColor="@color/purple_200"
+                app:indicatorName="PacmanIndicator" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_pic"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="5dp"
+                android:scaleType="fitXY"
+                app:shapeAppearanceOverlay="@style/circleImageStyle" />
+        </FrameLayout>
 
         <!--        <ImageView-->
         <!--            android:id="@+id/iv_pic"-->
@@ -64,8 +79,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/textview_backgroud"
                     android:textAlignment="viewStart"
-                    android:textSize="12dp"
-                    android:textColor="#D69292" />
+                    android:textColor="#D69292"
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/txt_time"
@@ -74,8 +89,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/txt_number_of_people"
                     android:background="@drawable/textview_backgroud"
-                    android:textSize="12dp"
-                    android:textColor="#D69292" />
+                    android:textColor="#D69292"
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/txt_category"
@@ -84,8 +99,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/txt_time"
                     android:background="@drawable/textview_backgroud"
-                    android:textSize="12dp"
-                    android:textColor="#D69292" />
+                    android:textColor="#D69292"
+                    android:textSize="12dp" />
 
             </RelativeLayout>
 
@@ -105,8 +120,8 @@
         android:id="@+id/txt_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
         android:textAlignment="viewStart"
         android:textSize="15dp"
         android:textStyle="bold" />
@@ -116,14 +131,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_owner_pic"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_person"
-            android:scaleType="fitXY"
-            app:shapeAppearanceOverlay="@style/circleImageStyle"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi2"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                app:indicatorColor="@color/purple_200"
+                app:indicatorName="PacmanIndicator" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_owner_pic"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                app:shapeAppearanceOverlay="@style/circleImageStyle" />
+        </FrameLayout>
 
         <!--        <ImageView-->
         <!--            android:id="@+id/iv_owner_pic"-->
