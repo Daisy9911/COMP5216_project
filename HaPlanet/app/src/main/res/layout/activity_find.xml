@@ -15,7 +15,6 @@
         app:textHintSearch="Input something..."
         app:searchBlockHeight="150"
         app:searchBlockColor="#ffffff"
-        android:background="@drawable/custom_input"
         />
 
     <ListView
