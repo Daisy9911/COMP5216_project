@@ -119,7 +119,8 @@
                 android:hint="Select location"
                 android:background="@null"
                 android:drawableRight="@drawable/ic_arrow_right"
-                android:textSize="18dp"/>
+                android:textSize="18dp"
+                android:focusable="false"/>
         </RelativeLayout>
     </LinearLayout>
 

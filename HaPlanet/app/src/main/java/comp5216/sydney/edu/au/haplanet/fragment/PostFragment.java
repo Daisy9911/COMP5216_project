@@ -1,6 +1,7 @@
 package comp5216.sydney.edu.au.haplanet.fragment;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -34,6 +35,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,10 +47,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import comp5216.sydney.edu.au.haplanet.LoginActivity;
 import comp5216.sydney.edu.au.haplanet.MainActivity;
+import comp5216.sydney.edu.au.haplanet.MapsActivity;
 import comp5216.sydney.edu.au.haplanet.MarshmallowPermission;
 import comp5216.sydney.edu.au.haplanet.R;
+import comp5216.sydney.edu.au.haplanet.RegisterActivity;
 import comp5216.sydney.edu.au.haplanet.model.EventModel;
+import comp5216.sydney.edu.au.haplanet.model.MessageEvent;
 
 public class PostFragment extends Fragment {
 
@@ -97,6 +106,9 @@ public class PostFragment extends Fragment {
         photopreview.setOnClickListener(v -> takePhoto());
 
         submitBtn.setOnClickListener(v -> submitPost());
+
+        EventBus.getDefault().register(this);
+        locationText.setOnClickListener(v -> selectLocation());
     }
 
     @SuppressLint("SetTextI18n")
@@ -287,4 +299,23 @@ public class PostFragment extends Fragment {
         }
     }
 
+    private void selectLocation() {
+
+        startActivity(new Intent(getActivity(), MapsActivity.class));
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        Log.e(TAG, "message is " + event.getMessage());
+        // 更新界面
+        locationText.setText(event.getMessage());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // 注销订阅者
+        EventBus.getDefault().unregister(this);
+    }
 }
