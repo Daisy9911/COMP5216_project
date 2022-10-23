@@ -201,7 +201,7 @@ public class PostFragment extends Fragment {
                             numberOfPeople, price, time, category, uidList);
                     files.add(newEventModel);
 
-                    Toast.makeText(getActivity(), "Upload Firebase Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Submit Success", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);

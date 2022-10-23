@@ -225,7 +225,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             }
                         });
-                        Toast.makeText(RegisterActivity.this, "Upload Firebase Success",
+                        Toast.makeText(RegisterActivity.this, "Sign up Success",
                                 Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     } else {
