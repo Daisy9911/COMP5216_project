@@ -197,7 +197,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(RegisterActivity.this, "Please input a real email", Toast.LENGTH_SHORT).show();
         } else if (!isPassword(password)) {
             Toast.makeText(RegisterActivity.this,
-                    "Password must have 8 characters, including 1 letter and 1 number", Toast.LENGTH_SHORT).show();
+                    "Password must have 8 characters, including 1 letter.", Toast.LENGTH_SHORT).show();
         } else {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(et_email.getText().toString(), et_password.getText()
                     .toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
