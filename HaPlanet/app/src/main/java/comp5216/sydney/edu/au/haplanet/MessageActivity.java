@@ -115,6 +115,8 @@ public class MessageActivity extends AppCompatActivity {
                 long timestamp = System.currentTimeMillis();
                 Date date = new Date(timestamp);
 
+                txtMessage.setText("");
+
                 Log.e("Date", String.valueOf(date));
 
                 Log.e("Timestamp", String.valueOf(timestamp));
