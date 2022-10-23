@@ -236,9 +236,9 @@ public class PostFragment extends Fragment {
                     File file = new File(filePath);
                     Log.e("file before", String.valueOf(file.length()));
 
-                    File newFile = new File(filePath.substring(0, filePath.lastIndexOf("/") + 1) + "1" + filePath.substring(filePath.lastIndexOf("/") + 1));
-                    compressBitmapToFile(selectedImage, newFile);
-                    filePath = filePath.substring(0, filePath.lastIndexOf("/")) + "_" + filePath.substring(filePath.lastIndexOf("/") + 1);
+//                    File newFile = new File(filePath.substring(0, filePath.lastIndexOf("/") + 1) + "1" + filePath.substring(filePath.lastIndexOf("/") + 1));
+//                    compressBitmapToFile(selectedImage, newFile);
+//                    filePath = filePath.substring(0, filePath.lastIndexOf("/")) + "_" + filePath.substring(filePath.lastIndexOf("/") + 1);
 
 
                 } catch (FileNotFoundException e) {
