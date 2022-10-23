@@ -179,7 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public boolean isPassword(String password) {
-        String regex = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9 _]{8,15}$/";
+        String regex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(password);
         boolean isMatch = m.matches();
@@ -197,7 +197,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(RegisterActivity.this, "Please input a real email", Toast.LENGTH_SHORT).show();
         } else if (!isPassword(password)) {
             Toast.makeText(RegisterActivity.this,
-                    "Password must have 8-15 characters, including 1 uppercase letter and 1 number", Toast.LENGTH_SHORT).show();
+                    "Password must have 8 characters, including 1 letter and 1 number", Toast.LENGTH_SHORT).show();
         } else {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(et_email.getText().toString(), et_password.getText()
                     .toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
